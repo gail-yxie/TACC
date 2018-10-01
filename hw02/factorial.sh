@@ -2,7 +2,7 @@
 # It will calculate the factorial of a supplied number.
 
 # input the supplied number
-read -p "Pleas input n:" n
+read -p "Pleas input a nonnegative integer:" n
 
 # initialize
 fact=1
