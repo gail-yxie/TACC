@@ -25,7 +25,7 @@ for (( i=1;i<=$N_samples;i=i+1 ))
 # calculate parameters
 N_i=$(( $N_samples -  $N_o ))
 pi_estimate=$(echo "scale=15; $N_i/$N_samples*4" | bc -l)
-e_rel=$(echo "scale=4; $pi_estimate/3.14159265-1" | bc -l)
+e_rel=$(echo "scale=4; $pi_estimate/3.141592653589793-1" | bc -l)
 
 # get absolute value of relative error
 if [ $(echo "$e_rel < 0" | bc) -eq 1 ];then
