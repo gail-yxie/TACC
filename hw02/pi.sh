@@ -27,6 +27,11 @@ N_i=$(( $N_samples -  $N_o ))
 pi_estimate=$(echo "scale=15; $N_i/$N_samples*4" | bc -l)
 e_rel=$(echo "scale=4; $pi_estimate/3.14159265-1" | bc -l)
 
+# get absolute value of relative error
+if [ $(echo "$e_rel < 0" | bc) -eq 1 ];then
+        e_rel=$(echo "scale=4; 0 - $e_rel" | bc -l)
+fi
+
 # output
 echo $N_samples $N_i $N_o $pi_estimate $e_rel
 
