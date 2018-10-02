@@ -28,4 +28,19 @@
 echo "Master Host = "'hostname'
 echo "PWD_DIR: "'pwd'
 
-./pi.sh 
+# run for different n
+./pi.sh 10
+./pi.sh 100
+./pi.sh 500
+./pi.sh 1000
+./pi.sh 5000
+./pi.sh 10000
+./pi.sh 50000
+
+{ time ./pi.sh 10 ;} 2> batch1_time.txt
+{ time ./pi.sh 100 ;} 2>> batch1_time.txt
+{ time ./pi.sh 500 ;} 2>> batch1_time.txt
+{ time ./pi.sh 1000 ;} 2>> batch1_time.txt
+{ time ./pi.sh 5000 ;} 2>> batch1_time.txt
+{ time ./pi.sh 10000 ;} 2>> batch1_time.txt
+{ time ./pi.sh 50000 ;} 2>> batch1_time.txt
