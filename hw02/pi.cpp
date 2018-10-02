@@ -1,22 +1,27 @@
-#include <iostream>
 #include <time.h>
-#include <cstdlib>
+#include <cstdio>
 #include <stdlib.h>
-
+#include <string>
 using namespace std;
 
 
-int main()
+int main(int argc, char *argv[])
 {
+
+    if (argc <2) {
+	printf ("Error! Please input at least one number!\n");    
+	exit(0);
+     }
+
     /* code */
     int i, k;
-    int N_samples, N_o, N_i;
+    int N_o, N_i;
     double x, y, dist, pi_estimate, e_rel;
-    double pi;	
+    double pi;
+    int N_samples = stoi(argv[1]);	
 
-    cin >> N_samples;
     srand(time(0));	
-    
+
     N_o = 0;
     N_i = 0;
     pi = 3.141592653589793;
@@ -38,7 +43,7 @@ int main()
     if (e_rel < 0)
 	e_rel = - e_rel;
     
-    cout << N_samples<<" "<< N_i<<" "<< N_o << " "<< pi_estimate<<" "<<e_rel;
+    printf ("%d %d %d %0.15f %0.4f", N_samples, N_i, N_o, pi_estimate, e_rel);    
 
     return 0;
 }
