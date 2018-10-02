@@ -2,10 +2,10 @@
 # It will run a batch of pi.sh on SLURM
 
 # set the number of nodes
-#SBATCH -N 2
+#SBATCH -N 1
 
 # set the number of cores
-#SBATCH -n 32
+#SBATCH -n 32 
 
 # set output file name
 #SBATCH -o pi.script.log
@@ -25,22 +25,9 @@
 #SBATCH --mail-user=yuege@ices.utexas.edu
 #SBATCH --mail-type=begin
 
-echo "Master Host = "'hostname'
-echo "PWD_DIR: "'pwd'
-
 # run for different n
-./pi.sh 10
-./pi.sh 100
-./pi.sh 500
-./pi.sh 1000
-./pi.sh 5000
-./pi.sh 10000
-./pi.sh 50000
+for n in 10 100 500 1000 5000 10000 50000
+	do
+	 	/bin/time -f '%e' ./pi.sh $n
+	done
 
-{ time ./pi.sh 10 ;} 2> batch1_time.txt
-{ time ./pi.sh 100 ;} 2>> batch1_time.txt
-{ time ./pi.sh 500 ;} 2>> batch1_time.txt
-{ time ./pi.sh 1000 ;} 2>> batch1_time.txt
-{ time ./pi.sh 5000 ;} 2>> batch1_time.txt
-{ time ./pi.sh 10000 ;} 2>> batch1_time.txt
-{ time ./pi.sh 50000 ;} 2>> batch1_time.txt
