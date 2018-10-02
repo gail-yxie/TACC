@@ -20,11 +20,12 @@
 #SBATCH -A cse38018
 
 # set max run time
-#SBATCH -t 00:15:00
+#SBATCH -t 00:10:00
 #SBATCH --mail-user=yuege@ices.utexas.edu
 #SBATCH --mail-type=begin
 
-make pi
+g++ -std=c++11 -o pi pi.cpp
+
 # run for different n
 for n in 10 100 500 1000 5000 10000 50000
         do

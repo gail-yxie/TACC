@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 using namespace std;
 
 
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
     if (e_rel < 0)
 	e_rel = - e_rel;
     
-    printf ("%d %d %d %0.15f %0.4f", N_samples, N_i, N_o, pi_estimate, e_rel);    
+    printf ("%d %d %d %0.15f %0.4f ", N_samples, N_i, N_o, pi_estimate, e_rel);    
 
     return 0;
 }
