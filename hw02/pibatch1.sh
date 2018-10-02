@@ -22,6 +22,9 @@
 # set max run time
 #SBATCH -t 00:15:00
 
+#SBATCH --mail-user=yuege@ices.utexas.edu
+#SBATCH --mail-type=begin
+
 echo "Master Host = "'hostname'
 echo "PWD_DIR: "'pwd'
 
