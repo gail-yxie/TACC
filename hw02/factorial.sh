@@ -1,5 +1,6 @@
 #!/bin/bash
 # It will calculate the factorial of a supplied number.
+# Author: Yuege Xie
 
 # check the number of arguments
 if [ $# -lt 1 ];then

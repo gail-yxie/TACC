@@ -1,5 +1,6 @@
 #!/bin/bash
 # It will add two integers supplied as command line arguments
+# Author: Yuege Xie
 
 # check the number of inputs
 if [ $# -lt 2 ]; then

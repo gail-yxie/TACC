@@ -1,12 +1,12 @@
 #!/bin/bash
-# It will generate triangles for numbers and dots
+# It will generate two triangles of numbers and dots
 # Author: Yuege Xie
 
 for (( i=1;i<=10;i=i+1 ))
 
 	do
 
-	# generate the first triangle
+	# generate the first triangle of numbers
 	if [ $i -le 5 ]; then
 		# calculate the number of " "
 		res=$(( 5 - $i ))
@@ -14,7 +14,7 @@ for (( i=1;i<=10;i=i+1 ))
 		printf "$i %.0s" $(seq 1 $i)
 	        printf "\n"
 
-        # print the second triangle
+        # generate the second triangle of dots
 	else
 		# calculate the number of " " and .
 		res=$(( 10 - $i ))
