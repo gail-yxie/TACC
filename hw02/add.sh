@@ -3,7 +3,7 @@
 
 # check the number of inputs
 if [ $# -lt 2 ]; then
-	echo "Please input at least two numbers to do addition."
+	echo "Error! Please input at least two numbers to do addition."
 	exit
 else
 	# calculate and output the result
