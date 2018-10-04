@@ -1,24 +1,19 @@
 #!/bin/bash
 # It will run a batch of pi.sh on SLURM
+# Author: Yuege Xie
 
 # set the number of nodes
 #SBATCH -N 1
-
 # set the number of cores
-#SBATCH -n 32 
-
+#SBATCH -n 1 
 # set output file name
 #SBATCH -o pi.script.log
-
 # set job name
 #SBATCH -J pibatch1
-
 # set submission queue
 #SBATCH -p skx-dev
-
 # set Project name
 #SBATCH -A cse38018
-
 # set max run time
 #SBATCH -t 00:15:00
 
