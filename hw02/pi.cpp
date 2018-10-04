@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     N_o = 0;
     N_i = 0;
-    pi = 3.141592653589793;
+    pi = 3.14159265358979323846;
 
     for (i = 1; i <= N_samples; i++){
         x = rand()/double(RAND_MAX);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
     high_resolution_clock::time_point end = high_resolution_clock::now();
     duration<double> dur = duration_cast<duration<double>>(end - start);
-    printf ("%d %d %d %0.15f %0.4f %f\n", N_samples, N_i, N_o, pi_estimate, e_rel, dur);
+    printf ("%d %d %d %f %f %f\n", N_samples, N_i, N_o, pi_estimate, e_rel, dur);
 
     return 0;
 }
