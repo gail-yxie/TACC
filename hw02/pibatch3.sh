@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# It will run parallelly to get the estimate of pi
+
+# set the parameters of sbatch
+
 #SBATCH -N 1
 #SBATCH -n 48
 #SBATCH -o tmp.log
@@ -8,6 +12,7 @@
 #SBATCH -t 00:15:00
 #SBATCH -A cse38018
 
+# set up launcher
 module load launcher
 
 export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
@@ -20,10 +25,12 @@ export LAUNCHER_WORKDIR="$PWD"
 # add headings of out put
 echo "# num_samples num_i pi_estimate relative_error time_accum" >./iter.log
 
+# initialize
 i=0
 e_rel_goal=0.000005
 e_rel=1 
 
+# do while loop to estimate pi until reach given precision
 while [  $(echo "$e_rel > $e_rel_goal"| bc) -eq 1 ]
 	do
 
@@ -43,6 +50,7 @@ while [  $(echo "$e_rel > $e_rel_goal"| bc) -eq 1 ]
         	e_rel=$(echo "scale=7; 0 - $e_rel" | bc -l)
 	fi
 
+	# output to iter.log
 	echo $i $num_samples $num_i $pi_estimate $e_rel $time_accum >> ./iter.log
 	
 	done
