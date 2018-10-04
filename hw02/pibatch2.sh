@@ -20,6 +20,7 @@
 #SBATCH --mail-user=yuege@ices.utexas.edu
 #SBATCH --mail-type=begin
 
+echo "N_samples N_i N_o pi_estimate e_rel time"
 # compile pi.cpp
 g++ -std=c++11 -o pi pi.cpp
 

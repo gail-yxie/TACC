@@ -20,6 +20,7 @@
 #SBATCH --mail-user=yuege@ices.utexas.edu
 #SBATCH --mail-type=begin
 
+echo "N_samples N_i N_o pi_estimate e_rel time"
 # run for different n
 for n in 10 100 500 1000 5000 10000 50000
 	do
