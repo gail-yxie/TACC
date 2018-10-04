@@ -23,7 +23,7 @@
 # compile pi.cpp
 g++ -std=c++11 -o pi pi.cpp
 
-# run for different n
+# run complied pi for different n
 for n in 10 100 500 1000 5000 10000 50000
         do
                 ./pi $n
