@@ -1,5 +1,6 @@
 #!/bin/bash
 # It will run a batch of pi.sh on SLURM
+# Author: Yuege Xie
 
 # set the number of nodes
 #SBATCH -N 1
@@ -19,6 +20,7 @@
 #SBATCH --mail-user=yuege@ices.utexas.edu
 #SBATCH --mail-type=begin
 
+# compile pi.cpp
 g++ -std=c++11 -o pi pi.cpp
 
 # run for different n
