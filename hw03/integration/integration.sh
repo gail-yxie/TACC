@@ -6,7 +6,7 @@
 # set the number of cores
 #SBATCH -n 1 
 # set output file name
-#SBATCH -o integration.log
+#SBATCH -o integration.txt
 # set job name
 #SBATCH -J integration
 # set submission queue
