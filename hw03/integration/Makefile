@@ -10,10 +10,10 @@ CC := g++
 $(EXEC): $(OBJ)
 	$(CC) -o $@ $^ 
 
-%.o: %.c
+%.o: %.cpp %.h
 	$(CC) -c $<
 
-main.o func.o: func.h
+main.o simpson.o trapezoid.o fx.o: fx.h
 
 # Clean
 clean:

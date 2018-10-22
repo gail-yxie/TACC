@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
-#include "func.h"
+#include "fx.h"
+#include "simpson.h"
+#include "trapezoid.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -20,7 +22,7 @@ int main(int argc, char *argv[])
  	
 	/* if method is 1, we use trapezodial rule, 2 is simpson's rule.*/
 	if (method == 1){
-		inte = trapezoidal(N);
+		inte = trapezoid(N);
 		error = abs(inte - stand); 
 		}
 	else if (method == 2){
