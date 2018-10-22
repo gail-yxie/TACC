@@ -1,0 +1,27 @@
+
+clear all;
+close all;
+
+A = importdata("/Users/yuegexie/Documents/learn_linux/student-willway1023yx/hw03/integration/integration.txt");
+A1 = A(1:15,[2,4]);
+A2 = A(16:30,[2,4]);
+
+figure
+
+plot(log(A1(:,1)),log(A1(:,2)),'-o');
+title("Asymptotic Convergence Rates for Error Function")
+xlabel("log of N")
+ylabel("log of abs error")
+
+hold on;
+plot(log(A2(:,1)),log(A2(:,2)), '-o');
+x1 = [2,12];
+y1 = -2*x;
+plot(x1,y1,'--')
+
+x2 = [] 
+
+legend('trapezoid','simpson', 'k=-2')
+
+hold off;
+
