@@ -32,6 +32,6 @@ int main(int argc, char *argv[])
 		}
 	else
 		printf("Error, please input method 1 or 2!\n");
-	printf("%d %d %0.11f %0.11f\n", method, N, inte, error);
+	printf("%d %d %0.11f %g\n", method, N, inte, error);
 	return 0;
 }
