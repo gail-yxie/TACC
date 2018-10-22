@@ -14,13 +14,13 @@
 # set Project name
 #SBATCH -A cse38018
 # set max run time
-#SBATCH -t 00:20:00
+#SBATCH -t 00:05:00
 
 
 # run for different methods for different N
 for i in 1 2
 	do
-		for N in 10 20 40 80 160 320 640 1280 2560 5120 10240 20480 
+		for N in 10 20 40 80 160 320 640 1280 2560 5120 10240 20480 40960 81920 163840
 			do
 	 			./integrate $i $N
 			done
