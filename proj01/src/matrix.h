@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+#ifndef MATRIX_H
+#define MATRIX_H
+
+double (double);
+
+#endif
