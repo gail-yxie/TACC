@@ -3,6 +3,11 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-double (double);
+struct matrix{
+
+	int **col[][]
+	double **val[][]
+	int *nonzero;
+};
 
 #endif
