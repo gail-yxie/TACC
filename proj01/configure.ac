@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([grvy], [0.32.0], [yuege@ices.utexas.edu])
+AC_INIT([solver], [1.0], [yuege@ices.utexas.edu])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([main.c])
 AC_CONFIG_HEADERS([config.h])
