@@ -9,8 +9,8 @@ void solve_system(int n, char* iter_method)
 	int i, j, k;
 	double diag;
 	double *dz, *z;
-	dz = (double*) mcalloc(n*sizeof(double));
-	z  = (double*) mcalloc(n*sizeof(double));
+	dz = (double*) malloc(n*sizeof(double));
+	z  = (double*) malloc(n*sizeof(double));
 	
 	/* Solve linear system using Jacobi iteration */
 	if(iter_method == 'Jacobi')
