@@ -4,10 +4,11 @@
 #define MATRIX_H
 
 struct matrix{
-
-	int **col[][]
-	double **val[][]
-	int *nonzero;
+	
+	int* nonzero;	
+	int** col[][]
+	double** val[][]
+	
 };
 
 #endif

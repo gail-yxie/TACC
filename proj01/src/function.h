@@ -4,11 +4,11 @@
 #define FUNCTION_H
 
 // Read data from input file into parameters
-int parss_input();
-int init();
-int build_linear_system();
-int solve_system();
-int output();
+void parss_input();
+void init();
+void build_linear_system();
+void solve_system();
+void output();
 double error_norm();
 
 #endif

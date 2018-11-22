@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <grvy.h>
 
-int main(int argc, char **argv)
+void parse_input(int argc, char** argv)
 {
 	/* Use GRVY tool to read inputs from ./input.mat */
 	
@@ -71,6 +71,5 @@ int main(int argc, char **argv)
 	/* Close the file */
 	grvy_input_fclose();
 
-	return 0;
 
 }
