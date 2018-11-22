@@ -1,48 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrix.h"
+#include "error_norm.h"
 
-int main(int N, double **val, double *nonzero, double **col, double *b, double eps, int max_iter, double *x)
+void solve_system()
 {
-
+	/* Variable needed: n, iter_method */
 	int i, j, k;
-	double *dx, *y;
-	dx = (double*) calloc(N, sizeof(double));
-	y  = (double*) calloc(N, sizeof(double));
+	double *dz, *z;
+	dz = (double*) mcalloc(n*sizeof(double));
+	z  = (double*) mcalloc(n*sizeof(double));
 	
 	/* Solve linear system using Jacobi iteration */
 	if(iter_method == 'Jacobi')
-
-	for(k=1; k<max_iter; k++)
 	{
-		double sum = 0.0;
-		for(i=0; i<=N; i++)
+		for(k=1; k<max_iter; k++)
 		{
-			
-			dx[i] = b[i];
-
-			for(j=0; j<=nonzero[i]; j++)
-				dx[i] -= val[i][col[i][j]]*x[col[i][j]];
-
-			dx[i] /= val[i][];
-			y[i] += dx[i]; 			
-
-		}
+			for(i=0; i<n; i++)
+			{
+				dz[i] = b[i];
+				for(j=0; j<A.nonzero[i]; j++)
+				{
+					if(A.col[i][j]!=i)
+						dz[i] -= A.val[i][j] * x[A.col[i][j]];
+				}
+				dz[i] = dz[i] / A.val[i][]; 
+			}	
 		
-		if(sum <= eps) break;
+			if(error_norm(*z,*dz, n)<= eps) 
+				break;
+			else  //how to assign value?
+				for(i=0; i<n; i++)
+					z[i] = dz[i];
+		}
 
+		/*??? Free memory*/	
+		free(z);
+		free(dz);
 	}
 
-	free(dx);
-	free(y);
-
-	/* Solve linear system using Gauss Seidel iteration */
+	/* Solve linear system using Gauss-Seidel iteration */
 	if(iter_method == 'Gauss_Seidel')
-
 	
 
-	return 0;
-
 }
-
 

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "matrix.h"
 
 /* Parameters need: N, k, h, dimensions, fd_method */
