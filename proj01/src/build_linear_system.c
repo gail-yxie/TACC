@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include "matrix.h"
 
-/* Parameters need: N, k, h */
+/* Parameters need: N, k, h, dimensions, fd_method */
 
 void build_linear_system()
 {
 	int i,j,l;
 	int N;
-	double b[N+1];
 	double con = -k/(h*h);
 	
 	if(dimensions == 1)
@@ -17,9 +16,10 @@ void build_linear_system()
 		{	
 	
 			double v1d2nd[2]; 
-			1d2nd = {con, -2*con, con};
-				
-			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			v1d2nd = {con, -2*con, con};
+			
+			/* Define matrix */	
+			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
 				 
 			for(i=0;i<=N;i++)
 			{	
@@ -42,9 +42,9 @@ void build_linear_system()
 		if(fd_method == 4)
 		{
 			double v1d4th[5];
-			1d4th = {-1/12*con, 4/3*con, -5/2*con, 4/3*con, -1/12*con};
+			v1d4th = {-1/12*con, 4/3*con, -5/2*con, 4/3*con, -1/12*con};
 				
-			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
 
 			for(i=0;i<=N;i++)
 			{
@@ -70,9 +70,9 @@ void build_linear_system()
 		if(fd_method == 2)
 		{
 			double v2d2nd[5];
-			2d2nd = {con, con, -4*con, con, con};
+			v2d2nd = {con, con, -4*con, con, con};
 			
-			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
 
 			for(l=0;l<=N;l++)
 			{
@@ -116,9 +116,9 @@ void build_linear_system()
                 if(fd_method == 4)
 		{
 			double v2d4th[9];
-			2d4th = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
+			v2d4th = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
 		
-			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
 			
 			for(l=0;l<=N;l++)
 			{
