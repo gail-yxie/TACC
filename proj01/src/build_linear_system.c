@@ -5,7 +5,7 @@
 
 void build_linear_system()
 {
-	int i,j,k;
+	int i,j,l;
 	int N;
 	double b[N+1];
 	double con = -k/(h*h);
@@ -52,7 +52,7 @@ void build_linear_system()
 				{
 					A.nonzero[i] = 1;
 					A.col[i][0]  = i;
-					A.val[N][0]  = con;
+					A.val[i][0]  = con;
 				}
 				else
 				{
@@ -74,19 +74,54 @@ void build_linear_system()
 			
 			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
 
-			for(k=0;k<=N;k++)
+			for(l=0;l<=N;l++)
 			{
-				if((k==0)||(k==N))
+				if((l==0)||(l==N))
 				{
-					
+					for(i=0;i<=N;i++)
+					{ 
+						A.nonzero[l*(N+1)+i] = 1;
+						A.col[l*(N+1)+i][0]  = l*(N+1)+i;
+						A.val[l*(N+1)+i][0]  = con;
+					}
 				}
-				for(i=0;i<=N;i++)
+				else
 				{
+					for(i=0;i<=N;i++)
+					{
+						if((i==0)||(i==N))
+						{
+							A.nonzero[l*(N+1)+i] = 1;
+							A.col[l*(N+1)+i][0]  = l*(N+1)+i;
+							A.val[l*(N+1)+i][0]  = con;
+						}
+						else
+						{
+							A.nonzero[l*(N+1)+i] = 5;
+							A.col[l*(N+1)+i][0]  = (l-1)*(N+1)+i;
+							A.col[l*(N+1)+i][4]  = (l+1)*(N+1)+i;
+							for(j=1;j<A.nonzero[l*(N+1)+i]-1;j++)
+							{
+								A.col[l*(N+1)+i][j] = l*(N+1)+j-1;
+							}
+							A.val[l*(N+1)+i] = 2d2nd;
+						}
+					}
 				}
+				
 			}
+				
 		}
 				
                 if(fd_method == 4)
+		{
+			double 2d4th[9];
+			2d4th = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
+		
+			Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			
+				
+		}
 
 	}	
 
