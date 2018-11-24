@@ -48,7 +48,11 @@ void build_linear_system()
 			double v1d4th[5];
 			v1d4th = {-1/12*con, 4/3*con, -5/2*con, 4/3*con, -1/12*con};
 				
-			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			/* Define matrix */	
+			struct Matrix* A;
+			A.nonzero = (int*)malloc(sizeof(int)*(N+1));
+			A.col = (int*)malloc(sizeof(int)*(N+1)*5);
+			A.val = (double*)malloc(sizeof(double)*(N+1)*5);
 
 			for(i=0;i<=N;i++)
 			{
@@ -76,7 +80,11 @@ void build_linear_system()
 			double v2d2nd[5];
 			v2d2nd = {con, con, -4*con, con, con};
 			
-			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			/* Define matrix */	
+			struct Matrix* A;
+			A.nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
+			A.col = (int*)malloc(sizeof(int)*(N+1)*(N+1)*5);
+			A.val = (double*)malloc(sizeof(double)*(N+1)*(N+1)*5);
 
 			for(l=0;l<=N;l++)
 			{
@@ -122,7 +130,11 @@ void build_linear_system()
 			double v2d4th[9];
 			v2d4th = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
 		
-			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			/* Define matrix */	
+			struct Matrix* A;
+			A.nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
+			A.col = (int*)malloc(sizeof(int)*(N+1)*(N+1)*9);
+			A.val = (double*)malloc(sizeof(double)*(N+1)*(N+1)*9);
 			
 			for(l=0;l<=N;l++)
 			{
