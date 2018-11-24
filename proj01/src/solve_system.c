@@ -15,7 +15,7 @@ void solve_system(int n, char* iter_method)
 	/* Solve linear system using Jacobi iteration */
 	if(iter_method == 'Jacobi')
 	{
-		for(k=1; k<max_iter; k++)
+		for(k=0; k<max_iter; k++)
 		{
 			for(i=0; i<n; i++)
 			{
@@ -44,7 +44,7 @@ void solve_system(int n, char* iter_method)
 	/* Solve linear system using Gauss-Seidel iteration */
 	if(iter_method == 'Gauss_Seidel')
 	{
-		for(k=1; k<max_iter; k++)
+		for(k=0; k<max_iter; k++)
 		{
 			for(i=0; i<n; i++)
 			{
