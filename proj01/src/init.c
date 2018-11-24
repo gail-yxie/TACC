@@ -1,40 +1,46 @@
 #include <stdlib.h>
+#include "parameter.h"
 
-void init()
-{
-	/* Variables need: */
-
-	double h;
+void init(Parameter* solver)
+{	
+	/* Compute mesh size */
+	solver.h = (solver.xmax - solver.xmin) / solver.N; 
 	
-	h = (xmax - xmin) / N; 
-	if(dimensions == 1)
+	if(solver.dimensions == 1)
 	{	
-		masa_init("","1d");
-		masa_set_param("k",*k);
+		double x;
 
-		double* b;
-        	b = (double*)malloc((N+1)*sizeof(double));
-		int k = 0;
+		/* Initialize masa: we can choose "bob" or "nick" */
+		/* we can use  "masa_list_mms();" to initialize mms */
+		masa_init("bob","heateq_1d_steady_const");
+
+		/* Set parameter for masa example */
+		// ??? do we use k_0?
+		masa_set_param(k_0, solver.k);
+
+        	solver.b = (double*)malloc((N+1)*sizeof(double));
+		solver.f = (double*)malloc((N+1)*sizeof(double));
+		solver.u = (double*)malloc((N+1)*sizeof(double));
 	
 		for(int i=0; i<=N; i++)
 		{      
                         /* generate mesh */
-			x = xmin + i * h;
+			x = solver.xmin + i * solver.h;
 			/* source term */
-			f[i] = masa_eval_1d_source_f(x);
+			solver.f[i] = masa_eval_1d_source_t(x);
 			/* manufactured solution */
-			u[i] = masa_eval_2d_exact_phi(x);
+			solver.u[i] = masa_eval_1d_exact_t(x);
 			
 			if((i==0)||(i==N))
-				b[i] = u[i];
+				solver.b[i] = solver.u[i];
 			else
-				b[i] = f[i];
+				solver.b[i] = solver.f[i];
 		}
 
 		if(fd_method == 4)
 		{
-			b[1]   = u[1];
-			b[N-1] = u[N-1];
+			solver.b[1]   = solver.u[1];
+			solver.b[N-1] = solver.u[N-1];
 		}
 	}	
 

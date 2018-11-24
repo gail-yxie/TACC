@@ -28,6 +28,7 @@ struct Parameter{
 	double ymax;
 	
 	int N;
+	double h;
 
 	/* solver parameters */
 	
@@ -37,9 +38,13 @@ struct Parameter{
 	int max_iter;
 
 	/* linear system parameters */
-	Matrix* A;
+	struct Matrix* A;
 	double* b;
 	double* z;
+	
+	/* theorectical values*/
+	double* f;
+	double* u;
 };
 
 #endif

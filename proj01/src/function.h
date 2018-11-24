@@ -6,13 +6,11 @@
 
 /* Function prototypes */
 
-void parss_input();
-void init();
-void build_linear_system();
-void solve_system(int n, char* iter_method);
-void output();
-double error_norm(double* x, double* dx);
-
-/* Global state variables */
+void parse_input(Parameter*solver, const char* input_file);
+void init(Parameter* solver);
+void build_linear_system(Parameter* solver);
+void solve_system(Parameter* solver);;
+void output(*Parameter solver);;
+double error_norm(*Parameter solver);
 
 #endif
