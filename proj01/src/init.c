@@ -6,15 +6,14 @@ void init()
 
 	double h;
 	
-
-	h = (xmax - xmin) / N 
+	h = (xmax - xmin) / N; 
 	if(dimensions == 1)
 	{	
 		masa_init("","1d");
 		masa_set_param("k",*k);
 
 		double* b;
-        	b = (double*) malloc((N+1)*sizeof(double));
+        	b = (double*)malloc((N+1)*sizeof(double));
 		int k = 0;
 	
 		for(int i=0; i<=N; i++)
@@ -75,6 +74,4 @@ void init()
 				b[i*(N+1)+N-1]   = u[i][N-1];
 		}
 	}
-	
-
 }
