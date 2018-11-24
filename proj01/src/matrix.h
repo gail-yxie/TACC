@@ -6,8 +6,8 @@
 struct matrix{
 	
 	int* nonzero;	
-	int** col[][]
-	double** val[][]
+	int** col;
+	double** val;
 	
 };
 

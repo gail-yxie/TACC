@@ -20,7 +20,10 @@ void build_linear_system()
 			v1d2nd = {con, -2*con, con};
 			
 			/* Define matrix */	
-			//Matrix* A = (Matrix*) malloc(sizeof(Matrix));
+			struct Matrix* A;
+			A.nonzero = (int*)malloc(sizeof(int)*(N+1));
+			A.col = (int*)malloc(sizeof(int)*(N+1)*3);
+			A.val = (double*)malloc(sizeof(double)*(N+1)*3);
 				 
 			for(i=0;i<=N;i++)
 			{	
