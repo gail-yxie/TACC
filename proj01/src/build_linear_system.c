@@ -11,13 +11,10 @@ void build_linear_system()
 	double con = -k/(h*h);
 	
 	if(dimensions == 1)
-
 	{
 		if(fd_method == 2)
 		{	
-	
-			double v1d2nd[2]; 
-			v1d2nd = {con, -2*con, con};
+			double v1d2nd[3] = {con, -2*con, con};
 			
 			/* Define matrix */	
 			struct Matrix* A;
@@ -36,17 +33,18 @@ void build_linear_system()
 				else
 				{
 					A.nonzero[i] = 3;
-					A.val[i]     = v1d2nd;
 					for(j=0;j<A.nonzero[i],j++)
+					{
 						A.col[i][j] = i-1+j;
+						A.val[i][j] = v1d2nd[j];
+					}
 				}
 			}
 		}
 
 		if(fd_method == 4)
 		{
-			double v1d4th[5];
-			v1d4th = {-1/12*con, 4/3*con, -5/2*con, 4/3*con, -1/12*con};
+			double v1d4th[5] = {-1/12*con, 4/3*con, -5/2*con, 4/3*con, -1/12*con};
 				
 			/* Define matrix */	
 			struct Matrix* A;
@@ -65,9 +63,11 @@ void build_linear_system()
 				else
 				{
 					A.nonzero[i] = 5;
-					A.val[i]     = v1d4th;
 					for(j=0;j<A.nonzero[i],j++)
+					{
 						A.col[i][j] = i-2+j;
+						A.val[i][j] = v1d4th[j];
+					}
 				}
 			}
 		}
@@ -77,8 +77,7 @@ void build_linear_system()
 	{
 		if(fd_method == 2)
 		{
-			double v2d2nd[5];
-			v2d2nd = {con, con, -4*con, con, con};
+			double v2d2nd[5] = {con, con, -4*con, con, con};
 			
 			/* Define matrix */	
 			struct Matrix* A;
@@ -115,20 +114,17 @@ void build_linear_system()
 							for(j=1;j<A.nonzero[l*(N+1)+i]-1;j++)
 							{
 								A.col[l*(N+1)+i][j] = l*(N+1)+j-1;
+								A.val[i][j] = v2d2nd[j];
 							}
-							A.val[l*(N+1)+i] = v2d2nd;
 						}
 					}
-				}
-				
-			}
-				
+				}	
+			}		
 		}
 				
                 if(fd_method == 4)
 		{
-			double v2d4th[9];
-			v2d4th = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
+			double v2d4th[9] = {-1/12*con, 4/3*con, -1/12*con, 4/3*con, -5*con, 4/3*con, -1/12*con, 4/3*con, -1/12*con};
 		
 			/* Define matrix */	
 			struct Matrix* A;
@@ -167,15 +163,12 @@ void build_linear_system()
 							for(j=2;j<A.nonzero[l*(N+1)+i]-2;j++)
 							{
 								A.col[l*(N+1)+i][j] = l*(N+1)+j-2;
+								A.val[i][j] = v2d4th[j];
 							}
-							A.val[l*(N+1)+i] = v2d4th;
 						}
 					}
 				}
-			}
-				
+			}				
 		}
-
 	}	
-
 }
