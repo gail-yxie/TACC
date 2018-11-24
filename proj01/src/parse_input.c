@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <grvy.h>
+#include "parameter.h"
 
-void parse_input(int argc, char** argv)
+void parse_input()
 {
 	/* Use GRVY tool to read inputs from ./input.mat */
 	
