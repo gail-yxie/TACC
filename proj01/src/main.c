@@ -13,15 +13,14 @@ int main(int argc, char** argv[])
 	}
 
 	/* Define global struct and variable */
-	struct Parameter* solver;
-	const char* input_file = argv[1];
+	struct Parameter solver;
 
 	/* Run functions step by step*/ 	
-	parse_input(solver, input_file);
-	init(solver);
-	build_linear_system(solver);
-	solve_system(solver);
-	output(solver);
+	parse_input(&solver, argv[1]);
+	init(&solver);
+	build_linear_system(&solver);
+	solve_system(&solver);
+	output(&solver);
 
 	/* Freeing dynamic variables is in output.c*/
 
