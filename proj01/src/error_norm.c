@@ -2,7 +2,7 @@
 #include <math.h>
 #include "parameter.h"
 
-double error_norm(double* x, double* y)
+double error_norm(double* x, double* y, int n)
 {
 	double error;
 
