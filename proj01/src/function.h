@@ -11,6 +11,6 @@ void init(Parameter* solver);
 void build_linear_system(Parameter* solver);
 void solve_system(Parameter* solver);;
 void output(Parameter* solver);;
-double error_norm(Parameter* solver);
+double error_norm(double* x, double* y);
 
 #endif
