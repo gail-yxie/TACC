@@ -35,8 +35,8 @@ void solve_system(Parameter* solver)
 				}
 				dz[i] = tmp / diag; 
 			}	
-		
-			if(error_norm(solver.z,dz,n) < solver.eps)
+			/* Here act_n equals to n */
+			if(error_norm(solver.z, dz, n, n) < solver.eps)
 			{
 				for(i=0;i<n;i++)
 					solver.z[i] = dz[i];
@@ -71,7 +71,7 @@ void solve_system(Parameter* solver)
 				dz[i] = tmp / diag;
 			}	
 		
-			if(error_norm(solver.z, dz, n) < eps)
+			if(error_norm(solver.z, dz, n, n) < eps)
 			 	/* If the error_norm is less than eps, then break. */
 				for(i=0;i<n;i++)
 					solver.z[i] = dz[i];
