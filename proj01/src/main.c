@@ -23,9 +23,7 @@ int main(int argc, char** argv[])
 	solve_system(solver);
 	output(solver);
 
-	/* Free dynamic variables*/
-	free(solver.output_file);
-	free(solver.z);
-	
+	/* Freeing dynamic variables is in output.c*/
+
 	return 0;
 }
