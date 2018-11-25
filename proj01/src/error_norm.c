@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <math.h>
+#include "parameter.h"
 
-double error_norm(double* z, double* dz, int n)
+double error_norm(double* x, double* y)
 {
-	int i;
 	double error;
 
-	for(i=0;i<n;i++)
-		error += (z[i] - dz[i]) * (z[i] - dz[i]); 
+	for(int i=0;i<solver.n;i++)
+		error = error + (x[i] - y[i]) * (x[i] - y[i]); 
 	
 	error = sqrt(error/n);
 	
