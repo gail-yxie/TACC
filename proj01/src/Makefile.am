@@ -4,8 +4,8 @@ AUTOMAKE_OPTIONS = foreign
 bin_PROGRAMS = solver
 
 # Define source code files which are part of the executable
-solver_SOURCES = main.c build_linear_system.c function.h matrix.h parse_input.c error_norm.c init.c output.c solve_system.c
+solver_SOURCES = main.c parameter.h function.h parse_input.c init.c build_linear_system.c solve_system.c output.c error_norm.c
 
 # library linkage
-AM_CFLAGS = 
-LIBS      = 
+# AM_CFLAGS = 
+# LIBS      = 
