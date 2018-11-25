@@ -34,7 +34,7 @@ struct Parameter{
 	
 	int fd_method;
 	int iter_method;
-	double eps
+	double eps;
 	int max_iter;
 
 	/* linear system parameters */
