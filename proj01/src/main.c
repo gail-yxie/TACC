@@ -3,7 +3,7 @@
 #include "parameter.h"
 #include "function.h"
 
-int main(int argc, char argv[])
+int main(int argc, char** argv[])
 {
 	
 	if(argv < 2)
