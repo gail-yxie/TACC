@@ -27,8 +27,11 @@ void output(Parameter* solver)
         free(solver.b);
         free(solver.z);
         free(solver.A.nonzero);
-        free(solver.A.col);
-        free(solver.A.val)；
+	for(i=0;i<solver.n;i++)
+	{
+		free(solver.A.col[i]);
+		free(solver.A.val[i]);
+	}
         free(solver.f);
         free(solver.u)
 }
