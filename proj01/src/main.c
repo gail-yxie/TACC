@@ -17,15 +17,15 @@ int main(int argc, char argv[])
 	const char* input_file = argv[1];
 
 	/* Run functions step by step*/ 	
-	parse_input(Parameter*solver, const char* input_file);
-	init(Parameter* solver);
-	build_linear_system(Parameter* solver);
-	solve_system(Parameter* solver);
-	output(*Parameter solver);
+	parse_input(solver, input_file);
+	init(solver);
+	build_linear_system(solver);
+	solve_system(solver);
+	output(solver);
 
 	/* Free dynamic variables*/
 	free(solver.output_file);
-	//free(solver.);
+	free(solver.z);
 	
 	return 0;
 }

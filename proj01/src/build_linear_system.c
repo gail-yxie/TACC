@@ -6,7 +6,8 @@ void build_linear_system(Parameter* solver)
 {
 	int i,j,l;
 	double con = -solver.k/(solver.h*solver.h);
-	
+	double N = solver.N;
+		
 	if(solver.dimensions == 1)
 	{
 		if(solver.fd_method == 2)

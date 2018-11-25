@@ -4,11 +4,13 @@
 void init(Parameter* solver)
 {	
 	/* Compute mesh size */
-	solver.h = (solver.xmax - solver.xmin) / solver.N; 
+	double N = solver.N;
+	solver.h = (solver.xmax - solver.xmin) / N; 
 	
 	if(solver.dimensions == 1)
 	{	
 		double x;
+		solver.n = N+1;
 
 		/* Initialize masa: we can choose "bob" or "nick" */
 		/* we can use  "masa_list_mms();" to initialize mms */
@@ -47,6 +49,7 @@ void init(Parameter* solver)
 	if(dimensions == 2)
 	{	
 		double x,y;
+		solver.n = (N+1)*(N+1);
 
 		/* Initialize masa: we can choose "bob" or "nick" */
 		/* we can use  "masa_list_mms();" to initialize mms */

@@ -41,6 +41,7 @@ struct Parameter{
 	struct Matrix* A;
 	double* b;
 	double* z;
+	int n;
 	
 	/* theorectical values*/
 	double* f;
