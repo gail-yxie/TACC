@@ -16,8 +16,14 @@ void build_linear_system(Parameter* solver)
 			
 			/* Define matrix A */	
 			solver.A.nonzero = (int*)malloc(sizeof(int)*(N+1));
-			solver.A.col = (int*)malloc(sizeof(int)*(N+1)*3);
-			solver.A.val = (double*)malloc(sizeof(double)*(N+1)*3);
+			solver.A.col = (int**)malloc(sizeof(int*)*(N+1));
+			solver.A.val = (double**)malloc(sizeof(double*)*(N+1));
+			
+			for(i=0;i<N+1;i++)
+			{
+				solver.A.col[i] = (int *)malloc(sizeof(int) * 3);//allocate memory for each pointer.
+				solver.A.val[i] = (double *)malloc(sizeof(double) * 3);//allocate memory for each pointer.
+			}
 				 
 			for(i=0;i<=N;i++)
 			{	
@@ -45,8 +51,14 @@ void build_linear_system(Parameter* solver)
 				
 			/* Define matrix */	
 			solver.A.nonzero = (int*)malloc(sizeof(int)*(N+1));
-			solver.A.col = (int*)malloc(sizeof(int)*(N+1)*5);
-			solver.A.val = (double*)malloc(sizeof(double)*(N+1)*5);
+			solver.A.col = (int**)malloc(sizeof(int*)*(N+1));
+			solver.A.val = (double**)malloc(sizeof(double*)*(N+1));
+			
+			for(i=0;i<N+1;i++)
+			{
+				solver.A.col[i] = (int *)malloc(sizeof(int) * 5);
+				solver.A.val[i] = (double *)malloc(sizeof(double) * 5);
+			}
 
 			for(i=0;i<=N;i++)
 			{
@@ -77,8 +89,14 @@ void build_linear_system(Parameter* solver)
 			
 			/* Define matrix */	
 			solver.A.nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
-			solver.A.col = (int*)malloc(sizeof(int)*(N+1)*(N+1)*5);
-			solver.A.val = (double*)malloc(sizeof(double)*(N+1)*(N+1)*5);
+			solver.A.col = (int**)malloc(sizeof(int*)*(N+1)*(N+1));
+			solver.A.val = (double**)malloc(sizeof(double*)*(N+1)*(N+1));
+			
+			for(i=0;i<(N+1)*(N+1);i++)
+			{
+				solver.A.col[i] = (int *)malloc(sizeof(int) * 5);
+				solver.A.val[i] = (double *)malloc(sizeof(double) * 5);
+			}
 
 			for(l=0;l<=N;l++)
 			{
@@ -123,8 +141,14 @@ void build_linear_system(Parameter* solver)
 		
 			/* Define matrix */	
 			solver.A.nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
-			solver.A.col = (int*)malloc(sizeof(int)*(N+1)*(N+1)*9);
-			solver.A.val = (double*)malloc(sizeof(double)*(N+1)*(N+1)*9);
+			solver.A.col = (int**)malloc(sizeof(int*)*(N+1)*(N+1));
+			solver.A.val = (double**)malloc(sizeof(double*)*(N+1)*(N+1));
+			
+			for(i=0;i<(N+1)*(N+1);i++)
+			{
+				solver.A.col[i] = (int *)malloc(sizeof(int) * 9);
+				solver.A.val[i] = (double *)malloc(sizeof(double) * 9);
+			}
 			
 			for(l=0;l<=N;l++)
 			{
