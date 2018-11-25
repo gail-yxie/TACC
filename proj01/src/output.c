@@ -21,4 +21,14 @@ void output(Parameter* solver)
 	{
 	
 	}
+	
+	 /* Free dynamic variables*/
+        free(solver.output_file);
+        free(solver.b);
+        free(solver.z);
+        free(solver.A.nonzero);
+        free(solver.A.col);
+        free(solver.A.val)；
+        free(solver.f);
+        free(solver.u)
 }
