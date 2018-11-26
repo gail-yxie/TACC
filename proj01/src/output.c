@@ -38,10 +38,13 @@ void output(struct Parameter* solver)
                 for(i=0;i<solver->n;i++)
                         printf("%f  ", solver->u[i]);
                 printf("\n");
-
-		double error;
-		error = error_norm(solver->z, solver->u, solver->n);
-		printf("Error norm is %e\n", error);	
+		
+		if(solver->verify_mode == 1)
+		{
+			double error;
+			error = error_norm(solver->z, solver->u, solver->n);
+			printf("Error norm is %e\n", error);
+		}	
 	}
 	
 	/* debug mode */
