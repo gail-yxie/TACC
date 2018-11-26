@@ -130,7 +130,7 @@ void build_linear_system(struct Parameter* solver)
 							solver->col[l*(N+1)+i][4]  = (l+1)*(N+1)+i;
 							
 							for(j=1;j<solver->nonzero[l*(N+1)+i]-1;j++)
-								solver->col[l*(N+1)+i][j] = l*(N+1)+i+j-1;
+								solver->col[l*(N+1)+i][j] = l*(N+1)+i+j-2;
 							for(j=0;j<solver->nonzero[l*(N+1)+i];j++)
 								solver->val[l*(N+1)+i][j] = v2d2nd[j];
 						}
@@ -184,7 +184,7 @@ void build_linear_system(struct Parameter* solver)
 							solver->col[l*(N+1)+i][8]  = (l+2)*(N+1)+i;
 							
 							for(j=2;j<solver->nonzero[l*(N+1)+i]-2;j++)
-								solver->col[l*(N+1)+i][j] = l*(N+1)+i+j-2;
+								solver->col[l*(N+1)+i][j] = l*(N+1)+i+j-4;
 							for(j=0;j<solver->nonzero[l*(N+1)+i];j++)
 								solver->val[l*(N+1)+i][j] = v2d4th[j];
 						}

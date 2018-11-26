@@ -41,7 +41,7 @@ void output(struct Parameter* solver)
 
 		double error;
 		error = error_norm(solver->z, solver->u, solver->n);
-		printf("Error norm is %f\n", error);	
+		printf("Error norm is %e\n", error);	
 	}
 	
 	/* debug mode */
