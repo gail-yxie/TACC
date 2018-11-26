@@ -2,6 +2,7 @@
 
 void output(struct Parameter* solver)
 {
+	grvy_timer_begin(__func__);
 	int i,j;
 	/* silent mode */
 	if(solver->output_mode == 0)
@@ -65,4 +66,6 @@ void output(struct Parameter* solver)
 	}
         free(solver->f);
         free(solver->u);
+
+	grvy_timer_end(__func__);
 }

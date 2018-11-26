@@ -2,8 +2,8 @@
 
 void parse_input(struct Parameter* solver, const char* input_file)
 {
+	grvy_timer_begin(__func__);
 	/* Use GRVY tool to read inputs from /input.mat */
-	
 	int igot;
 
 	/* Initialize/read the file */
@@ -65,5 +65,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		
 	/* Close the file */
 	grvy_input_fclose();
+	grvy_timer_end(__func__);
 
 }

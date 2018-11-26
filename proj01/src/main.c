@@ -12,6 +12,9 @@ int main(int argc, char *argv[])
 	/* Define global struct and variable */
 	struct Parameter solver;
 	printf("Starting...\n");
+
+	grvy_timer_init("Steady Heat Equation Solver");
+	
 	/* Run functions step by step*/ 	
 	parse_input(&solver, argv[1]);
 	printf("Parse_input is done!\n");
@@ -24,7 +27,8 @@ int main(int argc, char *argv[])
 	output(&solver);
 	printf("Output is done!\n");
 
-	/* Freeing dynamic variables is in output.c*/
+	grvy_timer_finalize();
+	grvy_timer_summarize();
 
 	return 0;
 }

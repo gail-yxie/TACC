@@ -2,6 +2,8 @@
 
 void build_linear_system(struct Parameter* solver)
 {
+	grvy_timer_begin(__func__);
+
 	int i;
 	int j;
  	int l;
@@ -196,5 +198,6 @@ void build_linear_system(struct Parameter* solver)
 				}
 			}				
 		}
-	}	
+	}
+	grvy_timer_end(__func__);	
 }

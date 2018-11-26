@@ -2,6 +2,7 @@
 
 void solve_system(struct Parameter* solver)
 {
+	grvy_timer_begin(__func__);
 	/* Variable needed: n, iter_method */
 	int i, j, k;
 	double diag = 1;
@@ -73,4 +74,5 @@ void solve_system(struct Parameter* solver)
 		}
 		free(old_z);
 	}
+	grvy_timer_end(__func__);
 }

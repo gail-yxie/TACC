@@ -2,6 +2,8 @@
 
 void init(struct Parameter* solver)
 {	
+	grvy_timer_begin(__func__);
+
 	/* Compute mesh size */
 	int N = solver->N;
 	int i;
@@ -105,4 +107,6 @@ void init(struct Parameter* solver)
           {
           	printf("%f  %f  %f\n", solver->u[i], solver->f[i], solver->b[i]);
           }
+
+	grvy_timer_end(__func__);
 }
