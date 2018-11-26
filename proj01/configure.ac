@@ -17,6 +17,7 @@ AX_PATH_GRVY([0.32],[yes])
 AC_PROG_CC
 
 # Checks for libraries.
+AC_CHECK_LIB([m],[sqrt])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h])
@@ -30,3 +31,4 @@ AC_CHECK_FUNCS([sqrt])
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  test/Makefile])
+AC_OUTPUT()

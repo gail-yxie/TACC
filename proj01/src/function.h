@@ -1,16 +1,20 @@
 #include <stdio.h>
-#include "matrix.h"
+#include <stdlib.h>
+#include <math.h>
+#include "parameter.h"
+#include <grvy.h>
+#include <masa.h>
 
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
 /* Function prototypes */
 
-void parse_input(Parameter* solver, const char* input_file);
-void init(Parameter* solver);
-void build_linear_system(Parameter* solver);
-void solve_system(Parameter* solver);;
-void output(Parameter* solver);;
-double error_norm(double* x, double* y, int n; int act_n);
+void parse_input(struct Parameter* solver, const char* input_file);
+void init(struct Parameter* solver);
+void build_linear_system(struct Parameter* solver);
+void solve_system(struct Parameter* solver);
+void output(struct Parameter* solver);
+double error_norm(double* vecx, double* vecy, int vecn);
 
 #endif

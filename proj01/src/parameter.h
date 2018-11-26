@@ -3,14 +3,6 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-struct Matrix{
-
-        int* nonzero;
-        int** col;
-        double** val;
-
-};
-
 struct Parameter{
 
 	/* input/output parameters */
@@ -38,7 +30,10 @@ struct Parameter{
 	int max_iter;
 
 	/* linear system parameters */
-	struct Matrix* A;
+	int* nonzero;
+        int** col;
+        double** val;
+
 	double* b;
 	double* z;
 	int n;

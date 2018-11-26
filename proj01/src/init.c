@@ -1,16 +1,18 @@
-#include <stdlib.h>
-#include "parameter.h"
+#include "function.h"
 
-void init(Parameter* solver)
+void init(struct Parameter* solver)
 {	
 	/* Compute mesh size */
-	double N = solver.N;
-	solver.h = (solver.xmax - solver.xmin) / N; 
+	int N = solver->N;
+	int i;
+
+	solver->h = (solver->xmax - solver->xmin) / N; 
 	
-	if(solver.dimensions == 1)
+	printf("%f  %f  %d  %f\n",solver->xmax, solver->xmin, N, solver->h);	
+	if(solver->dimensions == 1)
 	{	
 		double x;
-		solver.n = N+1;
+		solver->n = N+1;
 
 		/* Initialize masa: we can choose "bob" or "nick" */
 		/* we can use  "masa_list_mms();" to initialize mms */
@@ -18,38 +20,41 @@ void init(Parameter* solver)
 
 		/* Set parameter for masa example */
 		// ??? do we use k_0?
-		masa_set_param(k_0, solver.k);
+		masa_set_param("k_0", solver->k);
 
-        	solver.b = (double*)malloc((N+1)*sizeof(double));
-		solver.f = (double*)malloc((N+1)*sizeof(double));
-		solver.u = (double*)malloc((N+1)*sizeof(double));
+        	solver->b = (double*)malloc((N+1)*sizeof(double));
+		solver->f = (double*)malloc((N+1)*sizeof(double));
+		solver->u = (double*)malloc((N+1)*sizeof(double));
 	
-		for(int i=0; i<=N; i++)
+		for(i=0; i<=N; i++)
 		{      
                         /* generate mesh */
-			x = solver.xmin + i * solver.h;
+			x = solver->xmin + i * solver->h;
 			/* source term */
-			solver.f[i] = masa_eval_1d_source_t(x);
+			solver->f[i] = masa_eval_1d_source_t(x);
 			/* manufactured solution */
-			solver.u[i] = masa_eval_1d_exact_t(x);
-			
+			solver->u[i] = masa_eval_1d_exact_t(x);
+				
 			if((i==0)||(i==N))
-				solver.b[i] = solver.u[i];
+				solver->b[i] = solver->u[i];
 			else
-				solver.b[i] = solver.f[i];
+				solver->b[i] = solver->f[i];
 		}
 
-		if(fd_method == 4)
+		if(solver->fd_method == 4)
 		{
-			solver.b[1]   = solver.u[1];
-			solver.b[N-1] = solver.u[N-1];
+			solver->b[1]   = solver->u[1];
+			solver->b[N-1] = solver->u[N-1];
 		}
 	}	
-
-	if(dimensions == 2)
+	
+	//printf("%f\n",solver->b[1]);
+	
+	if(solver->dimensions == 2)
 	{	
 		double x,y;
-		solver.n = (N+1)*(N+1);
+		int j;
+		solver->n = (N+1)*(N+1);
 
 		/* Initialize masa: we can choose "bob" or "nick" */
 		/* we can use  "masa_list_mms();" to initialize mms */
@@ -57,38 +62,38 @@ void init(Parameter* solver)
 
 		/* Set parameter for masa example */
 		// ??? do we use k_0?
-		masa_set_param(k_0, solver.k);
+		masa_set_param("k_0", solver->k);
 
-        	solver.b = (double*)malloc((N+1)*(N+1)*sizeof(double));
-		solver.f = (double*)malloc((N+1)*(N+1)*sizeof(double));
-		solver.u = (double*)malloc((N+1)*(N+1)*sizeof(double));
+        	solver->b = (double*)malloc((N+1)*(N+1)*sizeof(double));
+		solver->f = (double*)malloc((N+1)*(N+1)*sizeof(double));
+		solver->u = (double*)malloc((N+1)*(N+1)*sizeof(double));
 
-		for(int i=0; i<=N; i++)
-			for(int j=0; j<=N; j++)
+		for(i=0; i<=N; i++)
+			for(j=0; j<=N; j++)
 			{	
 				/* generate mesh */
-				x = solver.xmin + i * solver.h;
-				y = solver.ymin + j * solver.h;
+				x = solver->xmin + i * solver->h;
+				y = solver->ymin + j * solver->h;
 
 				/* source term */
-				solver.f[i*(N+1)+j] = masa_eval_2d_source_t(x,y);
+				solver->f[i*(N+1)+j] = masa_eval_2d_source_t(x,y);
 				/* manufactured solution */
-				solver.u[i*(N+1)+j] = masa_eval_2d_exact_t(x,y);
+				solver->u[i*(N+1)+j] = masa_eval_2d_exact_t(x,y);
 
 				if((i==0)||(i==N)||(j==0)||(j==N))
-					b[i*(N+1)+j] = u[i*(N+1)+j];
+					solver->b[i*(N+1)+j] = solver->u[i*(N+1)+j];
 				else
-					b[i*(N+1)+j] = f[i*(N+1)+j];
+					solver->b[i*(N+1)+j] = solver->f[i*(N+1)+j];
 			}
 
-		if(fd_method == 4)
+		if(solver->fd_method == 4)
 		{
 			for(j=0;j<=N;j++)
-				b[N+1+j]         = u[N+1+j];
-				b[(N-1)*(N+1)+j] = u[(N-1)*(N+1)+j];
+				solver->b[N+1+j]         = solver->u[N+1+j];
+				solver->b[(N-1)*(N+1)+j] = solver->u[(N-1)*(N+1)+j];
 			for(i=0;i<=N;i++)
-				b[i*(N+1)+1]     = u[i*(N+1)+1];
-				b[i*(N+1)+N-1]   = u[i*(N+1)+N-1];
+				solver->b[i*(N+1)+1]     = solver->u[i*(N+1)+1];
+				solver->b[i*(N+1)+N-1]   = solver->u[i*(N+1)+N-1];
 		}
 	}
 }

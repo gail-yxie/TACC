@@ -1,5 +1,3 @@
-AUTOMAKE_OPTIONS = foreign
-
 # Define executable to create
 bin_PROGRAMS = solver
 

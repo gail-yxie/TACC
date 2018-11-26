@@ -1,15 +1,13 @@
-#include <stdio.h>
-#include <math.h>
-#include "parameter.h"
+#include "function.h"
 
-double error_norm(double* x, double* y, int n, int act_n)
+double error_norm(double* vecx, double* vecy, int vecn)
 {
-	double error;
+	double error = 0;
 
-	for(int i=0;i<solver.n;i++)
-		error = error + (x[i] - y[i]) * (x[i] - y[i]); 
+	for(int i=0;i<vecn;i++)
+		error = error + (vecx[i] - vecy[i]) * (vecx[i] - vecy[i]); 
 	
-	error = sqrt(error/act_n);
+	error = sqrt(error/vecn);
 	
 	return error;
 }
