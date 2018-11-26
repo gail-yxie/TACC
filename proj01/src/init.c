@@ -7,7 +7,7 @@ void init(struct Parameter* solver)
 	int i;
 
 	solver->h = (solver->xmax - solver->xmin) / N; 
-	
+		
 	printf("%f  %f  %d  %f\n",solver->xmax, solver->xmin, N, solver->h);	
 	if(solver->dimensions == 1)
 	{	
@@ -19,7 +19,6 @@ void init(struct Parameter* solver)
 		masa_init("bob","heateq_1d_steady_const");
 
 		/* Set parameter for masa example */
-		// ??? do we use k_0?
 		masa_set_param("k_0", solver->k);
 
         	solver->b = (double*)malloc((N+1)*sizeof(double));
@@ -89,11 +88,21 @@ void init(struct Parameter* solver)
 		if(solver->fd_method == 4)
 		{
 			for(j=0;j<=N;j++)
+			{
 				solver->b[N+1+j]         = solver->u[N+1+j];
 				solver->b[(N-1)*(N+1)+j] = solver->u[(N-1)*(N+1)+j];
+			}
 			for(i=0;i<=N;i++)
+			{
 				solver->b[i*(N+1)+1]     = solver->u[i*(N+1)+1];
 				solver->b[i*(N+1)+N-1]   = solver->u[i*(N+1)+N-1];
+			}
 		}
 	}
+	  /* print the b, u and f*/
+          printf("u[i]  f[i]  b[i]\n");
+          for(i=0;i<solver->n;i++)
+          {
+          	printf("%f  %f  %f\n", solver->u[i], solver->f[i], solver->b[i]);
+          }
 }
