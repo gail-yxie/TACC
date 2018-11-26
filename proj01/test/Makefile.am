@@ -1,2 +1,2 @@
-TEST =
-CLEANFILES = 
+TESTS         = rng.bats
+

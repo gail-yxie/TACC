@@ -6,3 +6,5 @@ executable="../src/solver"
       run ls $executable
       [ "$status" -eq 0 ]
 }
+
+
