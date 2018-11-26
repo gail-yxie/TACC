@@ -44,7 +44,7 @@ void output(struct Parameter* solver)
 		{
 			double error;
 			error = error_norm(solver->z, solver->u, solver->n);
-			printf("Error norm is %e\n", error);
+			printf("Total n is: %d\n Error norm is %e\n", solver->n, error);
 		}	
 	}
 	

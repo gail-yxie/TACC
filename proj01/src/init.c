@@ -22,6 +22,7 @@ void init(struct Parameter* solver)
 
 		/* Set parameter for masa example */
 		masa_set_param("k_0", solver->k);
+		masa_set_param("A_x" , 3*M_PI);
 
         	solver->b = (double*)malloc((N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*sizeof(double));
@@ -62,8 +63,9 @@ void init(struct Parameter* solver)
 		masa_init("bob","heateq_2d_steady_const");
 
 		/* Set parameter for masa example */
-		// ??? do we use k_0?
 		masa_set_param("k_0", solver->k);
+		masa_set_param("A_x", 3*M_PI);
+		masa_set_param("B_y", 3*M_PI);
 
         	solver->b = (double*)malloc((N+1)*(N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*(N+1)*sizeof(double));
