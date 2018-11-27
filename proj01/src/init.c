@@ -111,6 +111,4 @@ void init(struct Parameter* solver)
 		printf("[debug]: init		- function end \n");
 		printf("[debug]: build_linear_system - function begin\n");
 	}
-	else if(solver->output_mode ==1)
-		printf("\n\n");
 }
