@@ -204,13 +204,37 @@ void build_linear_system(struct Parameter* solver)
 	}
 	grvy_timer_end(__func__);
 	
-	\\if(solver->output_mode == 2 && solver->N < 30)
-	\\{
-		\\printf("\n[A] =\n\n[\n");
-		\\for(int i=0;i<solver->n;i++)
-			\\for(int j=0;j<solver.)
-	\\}
+	/* Debug matrix*/
+	if(solver->output_mode == 2 && solver->N < 30)
+	{
+		printf("----------sparse matrix A------------\n");
+		printf("\n");
+		
+		printf("Number of nonzeros for each row [i]\n");
+		for(i=0;i<solver->n;i++)
+                        printf("%d  ", solver->nonzero[i]);
+                printf("\n");
+		
+		printf("Index of nonzero columns for each row [i]\n");
+		for(i=0;i<solver->n;i++)
+		{
+			for(j=0;j<solver->nonzero[i];j++)
+                        	printf("%d  ", solver->col[i][j]);
+                	printf("\n");
+		}
+		printf("\n");
+		
+		printf("Nonzero matrix values for each row [i]\n");
+		for(i=0;i<solver->n;i++)
+                {
+                        for(j=0;j<solver->nonzero[i];j++)
+                                printf("%f  ", solver->val[i][j]);
+                        printf("\n");
+                }
+		printf("\n");
+	}
 	
+	/* Debug right hand side values*/
 	if(solver->output_mode == 2 && solver->N < 30)
 	{
 		printf("\nb =\n\n[\n");
