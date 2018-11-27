@@ -54,6 +54,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	}
 	
 	if(solver->output_mode!=0)
+	{
 		printf("** Runtime mesh settings  (%dD):\n", solver->dimensions);
 		printf("   --> %-10s = %d	(xmin,xmax) = (%f, %f)\n","nx", solver->N, solver->xmin, solver->xmax);
 		if(solver->dimensions == 2)
@@ -69,8 +70,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		
 	/* Close the file */
 	grvy_input_fclose();
-	
-	grvy_timer_end(__func__);
 	
 	/* Outputs */
 	if(solver->output_mode!=0)
@@ -94,4 +93,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	}
 	else
 		printf("\n");
+	
+	grvy_timer_end(__func__);
 }
