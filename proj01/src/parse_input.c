@@ -91,7 +91,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		printf("[debug]: parse_input		- function end\n");
 		printf("[debug]: init			- function begin\n\n\n");
 	}
-	elseif(solver->output_mode == 1)
+	else if(solver->output_mode == 1)
 		printf("\n");
 	
 	grvy_timer_end(__func__);
