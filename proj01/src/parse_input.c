@@ -48,9 +48,9 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		printf("MASA :: Solution has 2 variables.\n");
 		printf("*-------------------------------------*\n");
 		printf("A_x is set to: 9.424777960769379\n");
-		printf("k_0 is set to: 1");
+		printf("k_0 is set to: 1\n");
 		printf("*-------------------------------------*\n");
-		printf("[debug]: summarize_options	- function begin\n");
+		printf("[debug]: summarize_options	- function begin\n\n");
 	}
 	
 	if(solver->output_mode!=0)
