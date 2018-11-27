@@ -3,7 +3,10 @@
 void solve_system(struct Parameter* solver)
 {
 	grvy_timer_begin(__func__);
-	/* Variable needed: n, iter_method */
+	
+	if(solver->output_mode !=0)
+		printf("** Solving linear system...\n");
+	
 	int i, j, k;
 	double diag = 1;
 	int n = solver->n;
@@ -32,9 +35,12 @@ void solve_system(struct Parameter* solver)
 						diag = solver->val[i][j];
 				}
 				solver->z[i] = tmp / diag; 
-			}	
-			/* Here act_n equals to n */
-			if(error_norm(solver->z, old_z, n) < solver->eps)
+			}
+			/* Output tmp error */
+			double tmp_error = error_norm(solver->z, old_z, n);
+			if(solver->output_mode ==2 )
+				printf("   [ current convergence eps = %e ]\n", tmp_error);
+			if(tmp_error < solver->eps)
 				break;
 			else
 				for(i=0;i<n;i++)
@@ -65,8 +71,10 @@ void solve_system(struct Parameter* solver)
 				}
 				solver->z[i] = tmp / diag;
 			}	
-		
-			if(error_norm(solver->z, old_z, n) < solver->eps)
+			double tmp_error = error_norm(solver->z, old_z, n);
+			if(solver->output_mode ==2 )
+				printf("   [ current convergence eps = %e ]\n", tmp_error);
+			if( tmp_error < solver->eps)
 				break;
 			else
 				for(i=0;i<n;i++)
@@ -74,5 +82,15 @@ void solve_system(struct Parameter* solver)
 		}
 		free(old_z);
 	}
+	
+	/* Print number of iterations */
+	if(solver->output_mode != 0)
+		printf("   --> Converged at iter: %d\n", k);
+	if(solver->output_mode == 2)
+	{
+		printf("[debug]: solve_system		- function end\n");
+		printf("[debug]: output			- function begin\n");
+	}
+		
 	grvy_timer_end(__func__);
 }
