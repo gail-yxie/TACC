@@ -204,10 +204,12 @@ void build_linear_system(struct Parameter* solver)
 	}
 	grvy_timer_end(__func__);
 	
-	//if(solver->output_mode == 2 && solver->N < 30)
-	//{
-	//	printf("\n[A] =\n\n[\n");
-	//}
+	\\if(solver->output_mode == 2 && solver->N < 30)
+	\\{
+		\\printf("\n[A] =\n\n[\n");
+		\\for(int i=0;i<solver->n;i++)
+			\\for(int j=0;j<solver.)
+	\\}
 	
 	if(solver->output_mode == 2 && solver->N < 30)
 	{
