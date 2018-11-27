@@ -5,7 +5,8 @@ void output(struct Parameter* solver)
 	grvy_timer_begin(__func__);
 	
 	int i;
-	
+	if(solver->output_mode != 0)
+		printf("--> Writing output to sol.dat\n");
 	/* Write solutions of heat equation to file output_file */
 	FILE *fp = NULL;
 	fp = fopen(solver->output_file,"w+");
@@ -15,19 +16,31 @@ void output(struct Parameter* solver)
 	fprintf(fp, "\n");
 	fclose(fp);
 	
+	if(solver->output_mode == 2)
+	{
+		printf("[debug]: output 		- function end\n");
+		printf("[debug]: error_norm		- function begin\n");
+	}
+	else if(solver->output_mode == 1)
+		printf("\n\n");
+	
 	/* Use l2 norm to verify the solutions*/
 	if(solver->verify_mode == 1)
-	{
+	{	
+		if(solver->output_mode != 0)
+			printf("** Computing l2 error norm.\n");
+		
 		double error;
 		error = error_norm(solver->z, solver->u, solver->n);
 		
-		printf("Error norm for verification is %e", error);
+		printf("   --> l2 error norm = %e", error);
 		
 		/* If you need to save the error norm in file and to plot convergence rate */
 		//FILE *fp2;
 		//fp2 = fopen("conv_tmp","w+");
 		//fprintf(fp2, "%d %e\n", solver->N ,error);
 		//fclose(fp2);
+		
 	}
 	
 	/* codes to generate reference data for check, please comment it when using the program. */
@@ -51,4 +64,10 @@ void output(struct Parameter* solver)
         free(solver->u);
 
 	grvy_timer_end(__func__);
+	
+	if(solver->output_mode == 2)
+	{
+		printf("[debug]: error_norm		- function end\n");
+		printf("[debug]: ~Laplacian_FD		- function begin\n");
+	}
 }
