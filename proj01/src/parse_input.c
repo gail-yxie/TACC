@@ -68,6 +68,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	/* Close the file */
 	grvy_input_fclose();
 	
+	grvy_timer_end(__func__);
 	
 	/* Outputs */
 	if(solver->output_mode!=0)
@@ -83,5 +84,10 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		printf("   --> %-10s = %s\n\n\n","solution output file", solver->output_file);
 	}
 	
-	grvy_timer_end(__func__);
+	if(solver->output_mode == 2)
+	{
+		printf("[debug]: summarize_options	- function end\n");
+		printf("[debug]: parse_input		- function end\n");
+		printf("[debug]: init			- function begin\n");
+	}
 }
