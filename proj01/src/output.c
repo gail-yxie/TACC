@@ -3,7 +3,23 @@
 void output(struct Parameter* solver)
 {
 	grvy_timer_begin(__func__);
+	
 	int i,j;
+	
+	FILE *fp = NULL;
+	fp = fopen(solver->output_file,"w+");
+	
+	for(i=0;i<solver->n;i++)
+		fprintf(fp, "%.16f ",solver->z[i]);
+	fprintf(fp, "\n");
+	
+	if(solver->verify_mode == 1)
+	{
+		double error;
+		error = error_norm(solver->z, solver->u, solver->n);
+		fprintf(fp, "Error norm is %e\n", error);
+	}
+
 	/* silent mode */
 	if(solver->output_mode == 0)
 	{
@@ -54,6 +70,8 @@ void output(struct Parameter* solver)
 	
 	}
 	
+	fclose(fp);
+
 	 /* Free dynamic variables*/
         free(solver->output_file);
         free(solver->b);

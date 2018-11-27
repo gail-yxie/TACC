@@ -11,60 +11,42 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	igot = grvy_input_fopen(input_file);
 
 	if(igot!=1)
+	{
 		printf("Error!Can not read the input file!\n");
-
+		exit(1);
+	}
+	
 	/* Read specific variables and echo locally */	
+	grvy_input_fread_double("k",&solver->k);
+	grvy_input_fread_int("verify_mode",&solver->verify_mode);
+	grvy_input_fread_int("output_mode",&solver->output_mode);
+	grvy_input_fread_char("output_file",&solver->output_file);
 
-	if(grvy_input_fread_double("k",&solver->k))
-                printf("--> %-10s = %f\n","k",solver->k);
-
-	if(grvy_input_fread_int("verify_mode",&solver->verify_mode))
-                printf("--> %-10s = %i\n","verify_mode",solver->verify_mode);
-	
-	if(grvy_input_fread_int("output_mode",&solver->output_mode))
-                printf("--> %-10s = %i\n","output_mode",solver->output_mode);
-
-	if(grvy_input_fread_char("output_file",&solver->output_file))
-                printf("--> %-10s = %s\n","output_file",solver->output_file);
-
-	
 	/* Read variables from the mesh section */
-	
-	if(grvy_input_fread_int("mesh/dimensions",&solver->dimensions))
-                printf("--> %-10s = %i\n","mesh/dimensions",solver->dimensions);
-	
-	if(grvy_input_fread_double("mesh/xmin",&solver->xmin))
-                printf("--> %-10s = %f\n","mesh/xmin",solver->xmin);
-
-	if(grvy_input_fread_double("mesh/xmax",&solver->xmax))
-                printf("--> %-10s = %f\n","mesh/xmax",solver->xmax);
-
-	if(grvy_input_fread_double("mesh/ymin",&solver->ymin))
-                printf("--> %-10s = %f\n","mesh/ymin",solver->ymin);
-
-	if(grvy_input_fread_double("mesh/ymax",&solver->ymax))
-                printf("--> %-10s = %f\n","mesh/ymax",solver->ymax);
-
-	if(grvy_input_fread_int("mesh/N",&solver->N))
-                printf("--> %-10s = %i\n","mesh/N",solver->N);
+	grvy_input_fread_int("mesh/dimensions",&solver->dimensions);
+	grvy_input_fread_double("mesh/xmin",&solver->xmin);
+	grvy_input_fread_double("mesh/xmax",&solver->xmax);
+	grvy_input_fread_double("mesh/ymin",&solver->ymin);
+	grvy_input_fread_double("mesh/ymax",&solver->ymax);
+	grvy_input_fread_int("mesh/N",&solver->N);
 
 	/* Read variables from the solver section */
-
-	if(grvy_input_fread_int("solver/fd_method",&solver->fd_method))
-                printf("--> %-10s = %i\n","mesh/fd_method",solver->fd_method);
-
-	if(grvy_input_fread_int("solver/iter_method",&solver->iter_method))
-                printf("--> %-10s = %i\n","solver/iter_method",solver->iter_method);
-
-	if(grvy_input_fread_double("solver/eps",&solver->eps))
-                printf("--> %-10s = %e\n","solver/eps",solver->eps);
-
-	if(grvy_input_fread_int("solver/max_iter",&solver->max_iter))
-                printf("--> %-10s = %i\n","solver/max_iter",solver->max_iter);
-
+	grvy_input_fread_int("solver/fd_method",&solver->fd_method);
+	grvy_input_fread_int("solver/iter_method",&solver->iter_method);
+	grvy_input_fread_double("solver/eps",&solver->eps);
+	grvy_input_fread_int("solver/max_iter",&solver->max_iter);
 		
 	/* Close the file */
 	grvy_input_fclose();
+	
+	solver->h = (solver->xmax - solver->xmin) / N;
+	/* Outputs */
+	if(solver->output_mode!=0)
+	{
+		printf("** Finite-difference based Heat Equation Solver (steady-state)\n");
+		printf("   --> Parsing runtime options from %s\n", input_file);
+		printf("   --> %-10s = %i\n","mesh/fd_method", solver->fd_method);
+	}
 	grvy_timer_end(__func__);
 
 }

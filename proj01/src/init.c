@@ -7,10 +7,7 @@ void init(struct Parameter* solver)
 	/* Compute mesh size */
 	int N = solver->N;
 	int i;
-
-	solver->h = (solver->xmax - solver->xmin) / N; 
 		
-	printf("%f  %f  %d  %f\n",solver->xmax, solver->xmin, N, solver->h);	
 	if(solver->dimensions == 1)
 	{	
 		double x;

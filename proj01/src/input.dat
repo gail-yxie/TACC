@@ -10,12 +10,12 @@ output_file = 'sol.dat'         # name of solution output file
 
 [mesh]
 
-dimensions  = 2			# 1 or 2 dimensions?
+dimensions  = 1			# 1 or 2 dimensions?
 xmin = 0                	# min x location [m]
 xmax = 1			# max x location [m]
 ymin = 0 			# min y location [m]
 ymax = 1			# max y location [m]
-N    = 16			# number of mesh points
+N    = 4			# number of mesh points
 
 
 [solver]
