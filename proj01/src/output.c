@@ -24,10 +24,10 @@ void output(struct Parameter* solver)
 		printf("Error norm for verification is %e", error);
 		
 		/* If you need to save the error norm in file and to plot convergence rate */
-		\\FILE *fp2;
-		\\fp2 = fopen("conv_tmp","w+");
-		\\fprintf(fp2, "%d %e\n", solver->N ,error);
-		\\fclose(fp2);
+		//FILE *fp2;
+		//fp2 = fopen("conv_tmp","w+");
+		//fprintf(fp2, "%d %e\n", solver->N ,error);
+		//fclose(fp2);
 	}
 	
 	/* codes to generate reference data for check, please comment it when using the program. */
