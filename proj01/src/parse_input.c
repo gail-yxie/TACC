@@ -7,12 +7,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	int igot;
 
 	/* Initialize/read the file */
-	if(solver->output_mode!=0)
-	{
-		printf("\n\n");
-		printf("** Finite-difference based Heat Equation Solver (steady-state)\n");
-		printf("   --> Parsing runtime options from %s\n", input_file);
-	}
 	
 	igot = grvy_input_fopen(input_file);
 
@@ -20,6 +14,15 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	{
 		printf("Error!Can not read the input file!\n");
 		exit(1);
+	}
+	
+	grvy_input_fread_int("output_mode",&solver->output_mode);
+	
+	if(solver->output_mode!=0)
+	{
+		printf("\n\n");
+		printf("** Finite-difference based Heat Equation Solver (steady-state)\n");
+		printf("   --> Parsing runtime options from %s\n", input_file);
 	}
 	
 	if(solver->output_mode == 2)
@@ -35,7 +38,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	/* Read specific variables */	
 	grvy_input_fread_double("k",&solver->k);
 	grvy_input_fread_int("verify_mode",&solver->verify_mode);
-	grvy_input_fread_int("output_mode",&solver->output_mode);
 	grvy_input_fread_char("output_file",&solver->output_file);
 
 	/* Read variables from the mesh section */
