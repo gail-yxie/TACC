@@ -4,18 +4,18 @@
 
 k           = 1.0               # thermal conductivity [W/mK]
 verify_mode = 1                 # enable verification mode with MASA
-output_mode = 1                # output mode (0 = silent, 1 = standard, 2 = debug)
+output_mode = 0                 # output mode (0 = silent, 1 = standard, 2 = debug)
 output_file = 'sol.dat'         # name of solution output file
 
 
 [mesh]
 
 dimensions  = 1			# 1 or 2 dimensions?
-xmin = 0                	# min x location [m]
+xmin = 0            # min x location [m]
 xmax = 1			# max x location [m]
 ymin = 0 			# min y location [m]
 ymax = 1			# max y location [m]
-N    = 512			# number of mesh points
+N    = 128		# number of mesh points
 
 
 [solver]
