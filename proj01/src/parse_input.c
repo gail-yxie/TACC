@@ -25,16 +25,6 @@ void parse_input(struct Parameter* solver, const char* input_file)
 		printf("   --> Parsing runtime options from %s\n", input_file);
 	}
 	
-	if(solver->output_mode == 2)
-	{
-		printf("MASA :: Solution has 2 variables.\n");
-		printf("*-------------------------------------*\n");
-		printf("A_x is set to: 9.424777960769379\n");
-		printf("k_0 is set to: 1");
-		printf("*-------------------------------------*\n");
-		printf("[debug]: summarize_options	- function begin\n");
-	}
-	
 	/* Read specific variables */	
 	grvy_input_fread_double("k",&solver->k);
 	grvy_input_fread_int("verify_mode",&solver->verify_mode);
@@ -51,9 +41,19 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	solver->h = (solver->xmax - solver->xmin) / solver-> N;
 	
 	if(solver->output_mode!=0)
-	{
 		printf("   --> %-10s = %f\n\n\n","h", solver->h);
-		
+	
+	if(solver->output_mode == 2)
+	{
+		printf("MASA :: Solution has 2 variables.\n");
+		printf("*-------------------------------------*\n");
+		printf("A_x is set to: 9.424777960769379\n");
+		printf("k_0 is set to: 1");
+		printf("*-------------------------------------*\n");
+		printf("[debug]: summarize_options	- function begin\n");
+	}
+	
+	if(solver->output_mode!=0)
 		printf("** Runtime mesh settings  (%dD):\n", solver->dimensions);
 		printf("   --> %-10s = %d	(xmin,xmax) = (%f, %f)\n","nx", solver->N, solver->xmin, solver->xmax);
 		if(solver->dimensions == 2)
@@ -83,13 +83,15 @@ void parse_input(struct Parameter* solver, const char* input_file)
 			printf("   --> %-10s = %s\n","iterative method", "GAUSS_SEIDEL");
 		printf("   --> %-10s = %d\n","max iterations", solver->max_iter);
 		printf("   --> %-10s = %f\n","thermal conductivity", solver->k);
-		printf("   --> %-10s = %s\n\n\n","solution output file", solver->output_file);
+		printf("   --> %-10s = %s\n\n","solution output file", solver->output_file);
 	}
 	
 	if(solver->output_mode == 2)
 	{
 		printf("[debug]: summarize_options	- function end\n");
 		printf("[debug]: parse_input		- function end\n");
-		printf("[debug]: init			- function begin\n");
+		printf("[debug]: init			- function begin\n\n\n");
 	}
+	else
+		printf("\n");
 }
