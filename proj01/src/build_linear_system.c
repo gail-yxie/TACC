@@ -11,8 +11,11 @@ void build_linear_system(struct Parameter* solver)
 	double con = -solver->k/(solver->h*solver->h);
 	int N = solver->N;
 	
-	//printf("%d\n",N);
-	printf("constant term is %f\n",con);
+	if(solver->output_mode != 0)
+	{
+		printf("\n\n** Building linear system...\n");
+		printf("   --> Enforcing analytic Dirichlet BCs using MASA (%dD)\n", solver->dimensions);
+	}
 	
 	if(solver->dimensions == 1)
 	{
@@ -199,5 +202,25 @@ void build_linear_system(struct Parameter* solver)
 			}				
 		}
 	}
-	grvy_timer_end(__func__);	
+	grvy_timer_end(__func__);
+	
+	//if(solver->output_mode == 2 && solver->N < 30)
+	//{
+	//	printf("\n[A] =\n\n[\n");
+	//}
+	
+	if(solver->output_mode == 2 && solver->N < 30)
+	{
+		printf("\nb =\n\n[\n");
+		for(i=0;i<solver->n;i++)
+			printf("%f;\n", solver->b[i]);
+		printf("];\n\n")
+	}
+	
+	if(solver->output_mode == 2)
+	{
+		printf("[debug]: build_linear_system	- function end\n");
+		printf("[debug]: solve_system		- function begin\n");
+	}
+	
 }
