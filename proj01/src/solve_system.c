@@ -7,7 +7,8 @@ void solve_system(struct Parameter* solver)
 	if(solver->output_mode !=0)
 		printf("** Solving linear system...\n");
 	
-	int i, j, k;
+	int i, j;
+	int k=0;
 	double diag = 1;
 	int n = solver->n;
 	double tmp;
