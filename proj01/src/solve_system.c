@@ -5,7 +5,7 @@ void solve_system(struct Parameter* solver)
 	grvy_timer_begin(__func__);
 	
 	if(solver->output_mode !=0)
-		printf("** Solving linear system...\n");
+		printf("\n\n** Solving linear system...\n");
 	
 	int i, j;
 	int k=0;
@@ -89,7 +89,7 @@ void solve_system(struct Parameter* solver)
 		printf("   --> Converged at iter: %d\n", k);
 	if(solver->output_mode == 2)
 	{
-		printf("[debug]: solve_system		- function end\n");
+		printf("\n[debug]: solve_system		- function end\n");
 		printf("[debug]: output			- function begin\n");
 	}
 		
