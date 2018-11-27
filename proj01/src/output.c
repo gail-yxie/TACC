@@ -4,7 +4,7 @@ void output(struct Parameter* solver)
 {
 	grvy_timer_begin(__func__);
 	
-	int i,j;
+	int i;
 	
 	/* Write solutions of heat equation to file output_file */
 	FILE *fp = NULL;
