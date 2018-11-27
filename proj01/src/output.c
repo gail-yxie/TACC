@@ -10,18 +10,14 @@ void output(struct Parameter* solver)
 	fp = fopen(solver->output_file,"w+");
 	
 	for(i=0;i<solver->n;i++)
-	{
-		fprintf(fp, "%.16f ",solver->z[i]);
-		if((i+1)%5 == 0) 
-			fprintf(fp,"\n");
-	}
+		fprintf(fp, "%.18f ",solver->z[i]);
 	fprintf(fp, "\n");
 	
 	if(solver->verify_mode == 1)
 	{
 		double error;
 		error = error_norm(solver->z, solver->u, solver->n);
-		fprintf(fp, "Error norm is %e\n", error);
+		printf("%d	%e\n", solver->N ,error);
 	}
 
 	/* silent mode */
@@ -29,9 +25,15 @@ void output(struct Parameter* solver)
 	{
 		//only output the result solver->z;
 	}
+
+	FILE *fp1 = NULL;
+	fp1 = fopen("../test/ref.txt", "w+");
+	for(i=0;i<solver->n;i++)
+                fprintf(fp1, "%.18f ",solver->u[i]);
+        fprintf(fp1, "\n"); 
 	
 	/* standard mode */
-	if(solver->output_mode == 1)
+	if(solver->output_mode == 3)
 	{
 		/* output the matrix */
 		printf("---matrix---\n");
