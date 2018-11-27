@@ -15,19 +15,26 @@ int main(int argc, char *argv[])
 	
 	/* open and read files*/
 	fsol = fopen(argv[2], "r");
+	if(fsol == NULL)
+		exit(1);
+	
 	fref = fopen(argv[3], "r");
+	if(fref == NULL)
+		exit(1);
 
 	for(i=0;i<n;i++)
 	{
-		fscanf(fsol, "%f ", &sol[i]);
-		fscanf(fref, "%f ", &ref[i]);
+		fscanf(fsol, "%lf", &sol[i]);
+		fscanf(fref, "%lf", &ref[i]);
 		error = error + (ref[i] - sol[i]) * (ref[i] - sol[i]);
-		printf("%f %f\n", sol[i], ref[i]);
 	}
+
 	error = sqrt(error/n);	
+
+        fclose(fsol);
+        fclose(fref);
 
 	printf("%e\n", error);
 
 	return 0;
-	
 }
