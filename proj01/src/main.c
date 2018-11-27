@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	
 	grvy_timer_summarize();
 	
-	if((*solver)->output_mode == 2)
+	if(solver.output_mode == 2)
 		printf("[debug]: ~Laplacian_FD		- function end\n");
 
 	return 0;
