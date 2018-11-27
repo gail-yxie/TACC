@@ -2,6 +2,9 @@
 
 void init(struct Parameter* solver)
 {	
+	if(solver->output_mode!=0)
+		printf("** Initializing data structures...\n");
+	
 	grvy_timer_begin(__func__);
 
 	/* Compute mesh size */

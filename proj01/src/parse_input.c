@@ -63,7 +63,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 			printf("   --> %-10s = %s\n","iterative method", "GAUSS_SEIDEL");
 		printf("   --> %-10s = %d\n","max iterations", solver->max_iter);
 		printf("   --> %-10s = %f\n","thermal conductivity", solver->k);
-		printf("   --> %-10s = %s\n","solution output file", solver->output_file);
+		printf("   --> %-10s = %s\n\n\n","solution output file", solver->output_file);
 	}
 	grvy_timer_end(__func__);
 }
