@@ -207,13 +207,13 @@ void build_linear_system(struct Parameter* solver)
 	/* Debug matrix*/
 	if(solver->output_mode == 2 && solver->N < 30)
 	{
-		printf("----------sparse matrix A------------\n");
+		printf("\n----------sparse matrix A------------\n");
 		printf("\n");
 		
 		printf("Number of nonzeros for each row [i]\n");
 		for(i=0;i<solver->n;i++)
                         printf("%d  ", solver->nonzero[i]);
-                printf("\n");
+                printf("\n\n");
 		
 		printf("Index of nonzero columns for each row [i]\n");
 		for(i=0;i<solver->n;i++)
