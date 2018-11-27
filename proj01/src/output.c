@@ -10,7 +10,11 @@ void output(struct Parameter* solver)
 	fp = fopen(solver->output_file,"w+");
 	
 	for(i=0;i<solver->n;i++)
+	{
 		fprintf(fp, "%.16f ",solver->z[i]);
+		if((i+1)%5 == 0) 
+			fprintf(fp,"\n");
+	}
 	fprintf(fp, "\n");
 	
 	if(solver->verify_mode == 1)

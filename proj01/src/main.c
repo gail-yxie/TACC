@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 	printf("Output is done!\n");
 
 	grvy_timer_finalize();
+	
 	grvy_timer_summarize();
 
 	return 0;
