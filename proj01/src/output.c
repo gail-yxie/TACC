@@ -6,7 +6,7 @@ void output(struct Parameter* solver)
 	
 	int i;
 	if(solver->output_mode != 0)
-		printf("--> Writing output to sol.dat\n");
+		printf("   --> Writing output to sol.dat\n");
 	/* Write solutions of heat equation to file output_file */
 	FILE *fp = NULL;
 	fp = fopen(solver->output_file,"w+");
@@ -28,12 +28,12 @@ void output(struct Parameter* solver)
 	if(solver->verify_mode == 1)
 	{	
 		if(solver->output_mode != 0)
-			printf("** Computing l2 error norm.\n");
+			printf("\n\n** Computing l2 error norm.\n");
 		
 		double error;
 		error = error_norm(solver->z, solver->u, solver->n);
 		
-		printf("   --> l2 error norm = %e", error);
+		printf("   --> l2 error norm = %e\n\n", error);
 		
 		/* If you need to save the error norm in file and to plot convergence rate */
 		//FILE *fp2;
