@@ -214,7 +214,7 @@ void build_linear_system(struct Parameter* solver)
 		printf("\nb =\n\n[\n");
 		for(i=0;i<solver->n;i++)
 			printf("%f;\n", solver->b[i]);
-		printf("];\n\n")
+		printf("];\n\n");
 	}
 	
 	if(solver->output_mode == 2)
