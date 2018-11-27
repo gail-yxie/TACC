@@ -103,12 +103,6 @@ void init(struct Parameter* solver)
 			}
 		}
 	}
-	  /* print the b, u and f*/
-          printf("u[i]  f[i]  b[i]\n");
-          for(i=0;i<solver->n;i++)
-          {
-          	printf("%f  %f  %f\n", solver->u[i], solver->f[i], solver->b[i]);
-          }
 
 	grvy_timer_end(__func__);
 }

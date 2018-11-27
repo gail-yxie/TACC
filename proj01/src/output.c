@@ -15,9 +15,12 @@ void output(struct Parameter* solver)
 	
 	if(solver->verify_mode == 1)
 	{
+		FILE *fp2;
 		double error;
+		fp2 = fopen("conv_tmp","w+");
 		error = error_norm(solver->z, solver->u, solver->n);
-		printf("%d	%e\n", solver->N ,error);
+		fprintf(fp2, "%d %e\n", solver->N ,error);
+		fclose(fp2);
 	}
 
 	/* silent mode */
@@ -26,11 +29,11 @@ void output(struct Parameter* solver)
 		//only output the result solver->z;
 	}
 
-	FILE *fp1 = NULL;
-	fp1 = fopen("../test/ref.txt", "w+");
-	for(i=0;i<solver->n;i++)
-                fprintf(fp1, "%.18f ",solver->u[i]);
-        fprintf(fp1, "\n"); 
+	//FILE *fp1 = NULL;
+	//fp1 = fopen("../test/ref_2d.txt", "w+");
+	//for(i=0;i<solver->n;i++)
+                //fprintf(fp1, "%.18f ",solver->u[i]);
+        //fprintf(fp1, "\n"); 
 	
 	/* standard mode */
 	if(solver->output_mode == 3)
