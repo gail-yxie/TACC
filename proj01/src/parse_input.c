@@ -44,6 +44,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	/* Outputs */
 	if(solver->output_mode!=0)
 	{
+		printf("\n\n");
 		printf("** Finite-difference based Heat Equation Solver (steady-state)\n");
 		printf("   --> Parsing runtime options from %s\n", input_file);
 		printf("   --> %-10s = %f\n\n\n","h", solver->h);
