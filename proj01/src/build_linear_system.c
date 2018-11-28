@@ -22,18 +22,17 @@ void build_linear_system(struct Parameter* solver)
 		if(solver->fd_method == 2)
 		{	
 			double v1d2nd[3] = {con, -2*con, con};
+			
 			/* Define matrix */	
 			solver->nonzero = (int*)malloc(sizeof(int)*(N+1));
 			solver->col = (int**)malloc(sizeof(int*)*(N+1));
 			solver->val = (double**)malloc(sizeof(double*)*(N+1));
-			//printf("first\n");
 	
 			for(i=0;i<N+1;i++)
 			{
 				solver->col[i] = (int*)malloc(sizeof(int) * 3);
 				solver->val[i] = (double*)malloc(sizeof(double) * 3);
 			}
-			//printf("allo is done!\n");
 	 
 			for(i=0;i<N+1;i++)
 			{	
@@ -148,10 +147,11 @@ void build_linear_system(struct Parameter* solver)
                 if(solver->fd_method == 4)
 		{
 			double v2d4th[9] = {-1.0/12*con, 4.0/3*con, -1.0/12*con, 4.0/3*con, -5*con, 4.0/3*con, -1.0/12*con, 4.0/3*con, -1.0/12*con};
-			printf("constant vector is:%f\n",con);
+			
 			for(i=0;i<9;i++)
 				printf("%f  ",v2d4th[i]);
 			printf("\n");
+			
 			/* Define matrix */	
 			solver->nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
 			solver->col = (int**)malloc(sizeof(int*)*(N+1)*(N+1));
