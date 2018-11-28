@@ -33,7 +33,8 @@ void output(struct Parameter* solver)
 		double error;
 		error = error_norm(solver->z, solver->u, solver->n);
 		
-		printf("   --> l2 error norm = %e\n\n", error);
+		if(solver->output_mode != 0)
+			printf("   --> l2 error norm = %e\n\n", error);
 		
 		/* If you need to save the error norm in file and to plot convergence rate */
 		//FILE *fp2;
