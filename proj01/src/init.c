@@ -23,7 +23,8 @@ void init(struct Parameter* solver)
 		/* Set parameter for masa example */
 		masa_set_param("k_0", solver->k);
 		masa_set_param("A_x" , 3*M_PI);
-
+		
+		/* Allocate dynamic memory */
         	solver->b = (double*)malloc((N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*sizeof(double));
 		solver->u = (double*)malloc((N+1)*sizeof(double));
@@ -36,10 +37,12 @@ void init(struct Parameter* solver)
 			solver->f[i] = masa_eval_1d_source_t(x);
 			/* manufactured solution */
 			solver->u[i] = masa_eval_1d_exact_t(x);
-				
+			
 			if((i==0)||(i==N))
+				/* Record boundary conditions*/
 				solver->b[i] = solver->u[i];
 			else
+				/* Record source terms */
 				solver->b[i] = solver->f[i];
 		}
 
@@ -49,8 +52,6 @@ void init(struct Parameter* solver)
 			solver->b[N-1] = solver->u[N-1];
 		}
 	}	
-	
-	//printf("%f\n",solver->b[1]);
 	
 	if(solver->dimensions == 2)
 	{	
@@ -67,6 +68,7 @@ void init(struct Parameter* solver)
 		masa_set_param("A_x", 3*M_PI);
 		masa_set_param("B_y", 3*M_PI);
 
+		/* Allocate dynamic memory */
         	solver->b = (double*)malloc((N+1)*(N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*(N+1)*sizeof(double));
 		solver->u = (double*)malloc((N+1)*(N+1)*sizeof(double));
@@ -82,13 +84,16 @@ void init(struct Parameter* solver)
 				solver->f[i*(N+1)+j] = masa_eval_2d_source_t(x,y);
 				/* manufactured solution */
 				solver->u[i*(N+1)+j] = masa_eval_2d_exact_t(x,y);
-
+		
 				if((i==0)||(i==N)||(j==0)||(j==N))
+					/* Record boundary conditions*/
 					solver->b[i*(N+1)+j] = solver->u[i*(N+1)+j];
 				else
+					/* Record source terms */
 					solver->b[i*(N+1)+j] = solver->f[i*(N+1)+j];
 			}
-
+		
+		/* Add "cheating" boundary conditions */
 		if(solver->fd_method == 4)
 		{
 			for(j=0;j<=N;j++)
