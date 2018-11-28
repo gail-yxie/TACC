@@ -4,7 +4,7 @@
 
 k           = 1.0               # thermal conductivity [W/mK]
 verify_mode = 1                 # enable verification mode with MASA
-output_mode = 1                 # output mode (0 = silent, 1 = standard, 2 = debug)
+output_mode = 2                 # output mode (0 = silent, 1 = standard, 2 = debug)
 output_file = 'sol.dat'         # name of solution output file
 
 

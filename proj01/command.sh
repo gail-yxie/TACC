@@ -1,5 +1,7 @@
 # This should work on Stampede2
 
+autoreconf -f -i
+
 export PKGPATH=/work/00161/karl/stampede2/public
 
 # configure 
