@@ -205,7 +205,7 @@ void build_linear_system(struct Parameter* solver)
 	grvy_timer_end(__func__);
 	
 	/* Debug matrix*/
-	if(solver->output_mode == 2 && solver->N < 30)
+	if(solver->output_mode == 2)
 	{
 		printf("\n----------sparse matrix A------------\n");
 		printf("\n");
@@ -235,7 +235,7 @@ void build_linear_system(struct Parameter* solver)
 	}
 	
 	/* Debug right hand side values*/
-	if(solver->output_mode == 2 && solver->N < 30)
+	if(solver->output_mode == 2)
 	{
 		printf("\nb =\n\n[\n");
 		for(i=0;i<solver->n;i++)
