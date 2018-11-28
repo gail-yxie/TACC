@@ -7,6 +7,7 @@ void output(struct Parameter* solver)
 	int i;
 	if(solver->output_mode != 0)
 		printf("   --> Writing output to sol.dat\n");
+	
 	/* Write solutions of heat equation to file output_file */
 	FILE *fp = NULL;
 	fp = fopen(solver->output_file,"w+");
