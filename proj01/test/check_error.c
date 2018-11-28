@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	sol = (double*)malloc(sizeof(double)*n);
 	ref = (double*)malloc(sizeof(double)*n);
 	
-	/* open and read files*/
+	/* Open and read files*/
 	fsol = fopen(argv[2], "r");
 	if(fsol == NULL)
 		exit(1);
@@ -21,7 +21,8 @@ int main(int argc, char *argv[])
 	fref = fopen(argv[3], "r");
 	if(fref == NULL)
 		exit(1);
-
+	
+	/* Read data and calculate error */
 	for(i=0;i<n;i++)
 	{
 		fscanf(fsol, "%lf", &sol[i]);
