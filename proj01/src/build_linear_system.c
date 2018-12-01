@@ -148,9 +148,9 @@ void build_linear_system(struct Parameter* solver)
 		{
 			double v2d4th[9] = {-1.0/12*con, 4.0/3*con, -1.0/12*con, 4.0/3*con, -5*con, 4.0/3*con, -1.0/12*con, 4.0/3*con, -1.0/12*con};
 			
-			for(i=0;i<9;i++)
-				printf("%f  ",v2d4th[i]);
-			printf("\n");
+			//for(i=0;i<9;i++)
+				//printf("%f  ",v2d4th[i]);
+			//printf("\n");
 			
 			/* Define matrix */	
 			solver->nonzero = (int*)malloc(sizeof(int)*(N+1)*(N+1));
