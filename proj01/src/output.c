@@ -62,7 +62,9 @@ void output(struct Parameter* solver)
 		free(solver->col[i]);
 		free(solver->val[i]);
 	}
-        free(solver->f);
+        free(solver->val);
+	free(solver->col);
+	free(solver->f);
         free(solver->u);
 
 	grvy_timer_end(__func__);
