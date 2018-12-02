@@ -39,6 +39,12 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	grvy_input_fread_double("mesh/ymax",&solver->ymax);
 	grvy_input_fread_int("mesh/N",&solver->N);
 	
+	if((solver->dimensions !=1) && (solver->dimensions !=2))
+	{
+		printf("Error! Please input a correct dimension!\n");
+		exit(1);
+	}
+	
 	if(solver->N < 0)
 	{
 		printf("Error! Please input a positive N for solving!\n");
