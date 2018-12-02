@@ -39,6 +39,12 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	grvy_input_fread_double("mesh/ymax",&solver->ymax);
 	grvy_input_fread_int("mesh/N",&solver->N);
 	
+	if(solver->N < 0)
+	{
+		printf("Error! Please input a positive N for solving!\n");
+		exit(1);
+	}
+	
 	/* Calculate h from inputs */
 	solver->h = (solver->xmax - solver->xmin) / solver-> N;
 	
@@ -69,6 +75,12 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	grvy_input_fread_int("solver/iter_method",&solver->iter_method);
 	grvy_input_fread_double("solver/eps",&solver->eps);
 	grvy_input_fread_int("solver/max_iter",&solver->max_iter);
+	
+	if((solver->iter_method!=1) || (solver->iter_method!=2))
+	{
+		printf("Error! Please input a correct iter_method!\n");
+		exit(1);
+	}
 		
 	/* Close the file */
 	grvy_input_fclose();
