@@ -59,7 +59,7 @@ fi
 $executable input.2d.4th.gauss
 ./check_error 16641 sol.dat ref_2d.txt > .tmp_output
 err="$(cat .tmp_output)"
-if [ $(echo "$err <= $err_ref_1" | bc -l) = 0 ]; then
+if [ $(echo "$err <= $err_ref_2" | bc -l) = 0 ]; then
 	echo "Error: error norm is too large!"
 	exit 1
 fi
