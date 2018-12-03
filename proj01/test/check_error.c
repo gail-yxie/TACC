@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
         fclose(fsol);
         fclose(fref);
 
-	printf("%e\n", error);
+	printf("%.14f\n", error);
 
 	return 0;
 }
