@@ -4,6 +4,7 @@
 #include "parameter.h"
 #include <grvy.h>
 #include <masa.h>
+#include "hdf5.h"
 
 #ifndef FUNCTION_H
 #define FUNCTION_H
