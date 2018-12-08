@@ -12,4 +12,4 @@ module swap intel gnu7
 which gcc
 
 # configure 
-./configure --with-masa=$PKGPATH/masa-gnu7-0.50 --with-grvy=$PKGPATH/grvy-gnu7-0.34 
+./configure --with-masa=$PKGPATH/masa-gnu7-0.50 --with-grvy=$PKGPATH/grvy-gnu7-0.34 --enable-coverage 
