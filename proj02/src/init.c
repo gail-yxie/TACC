@@ -27,7 +27,7 @@ void init(struct Parameter* solver)
         	solver->b = (double*)malloc((N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*sizeof(double));
 		solver->u = (double*)malloc((N+1)*sizeof(double));
-	
+		solver->cor_x = (double*)malloc((N+1)*sizeof(double));	
 		for(i=0; i<=N; i++)
 		{      
                         /* generate mesh */
@@ -70,7 +70,9 @@ void init(struct Parameter* solver)
         	solver->b = (double*)malloc((N+1)*(N+1)*sizeof(double));
 		solver->f = (double*)malloc((N+1)*(N+1)*sizeof(double));
 		solver->u = (double*)malloc((N+1)*(N+1)*sizeof(double));
-
+		solver->cor_x = (double*)malloc((N+1)*(N+1)*sizeof(double));
+		solver->cor_y = (double*)malloc((N+1)*(N+1)*sizeof(double));
+		
 		for(i=0; i<=N; i++)
 			for(j=0; j<=N; j++)
 			{	

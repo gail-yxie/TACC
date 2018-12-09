@@ -4,12 +4,12 @@ void output(struct Parameter* solver)
 {
 	grvy_timer_begin(__func__);
 	
-	int i, j;
+	int i;
 	if(solver->output_mode != 0)
 		printf("   --> Writing output to sol.dat\n");
 	
 	/* Write solutions of heat equation to file output_file HDF5 */
-	hid_t    file, group, dataset, dataspace;	/* file and dataset handles */
+	hid_t    file, dataset, dataspace;	/* file and dataset handles */
 	hsize_t  dimsf[1];			/* dataset dimensions */
 	herr_t   status;
 	
