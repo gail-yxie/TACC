@@ -24,7 +24,7 @@ void output(struct Parameter* solver)
 	herr_t   status;
 	
 	int 	 ny;
-	double** data;
+	//double** data;
 	int N = solver->N;
 	
 	if(solver->dimensions == 1)
@@ -35,20 +35,17 @@ void output(struct Parameter* solver)
 		ny = ny + 1;
 	
 	/* Initialize data buffer. */
-	data = (double**)malloc(sizeof(double*) * solver->n);
-	for(i=0;i<solver->n;i++)
-		data[i] = (double*)malloc(sizeof(double) * ny);
-	
+	//data = (double**)malloc(sizeof(double*) * solver->n);
+	//for(i=0;i<solver->n;i++)
+		//data[i] = (double*)malloc(sizeof(double) * ny);
+	double data[17][3];
 	if(solver->dimensions == 1)
 		for(i=0;i<=N;i++)
 		{
-			//data[i][0] = solver->xmin + i * solver->h;
-			//data[i][1] = solver->z[i];
-			//if(solver->verify_mode == 1)
-				//data[i][2] = solver->u[i];
-			data[i][0] = 0.0+i;
-			data[i][1] = 1.0+i;
-			data[i][2] = 2.0+i;
+			data[i][0] = solver->xmin + i * solver->h;
+			data[i][1] = solver->z[i];
+			if(solver->verify_mode == 1)
+				data[i][2] = solver->u[i];
 		}
 	
 	if(solver->dimensions == 2)	
@@ -61,10 +58,10 @@ void output(struct Parameter* solver)
 				if(solver->verify_mode == 1)
 					data[i*(N+1)+j][3] = solver->u[i*(N+1)+j];
 			}
-		
+
 	/* Create a new file using default properties. */
 	//need change file name
-	file = H5Fcreate("sol.h5", H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+	file = H5Fcreate("try.h5", H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	/* Create the data space for the dataset. */
 	dimsf[0] = solver->n;
 	dimsf[1] = ny;
@@ -84,7 +81,7 @@ void output(struct Parameter* solver)
 		printf("Error!Can not write the output file!\n");
 		exit(1);
 	}
-	
+		
 	if(solver->output_mode == 2)
 	{
 		printf("[debug]: output 		- function end\n");
@@ -129,11 +126,11 @@ void output(struct Parameter* solver)
 	{
 		free(solver->col[i]);
 		free(solver->val[i]);
-		free(data[i]);
+		//free(data[i]);
 	}
         free(solver->val);
 	free(solver->col);
-	free(data);
+	//free(data);
 	free(solver->f);
         free(solver->u);
 
