@@ -76,6 +76,12 @@ void output(struct Parameter* solver)
 	H5Dclose(dataset);
 	H5Fclose(file);
 	
+	if(status!=0)
+	{
+		printf("Error!Can not write the output file!\n");
+		exit(1);
+	}
+	
 	if(solver->output_mode == 2)
 	{
 		printf("[debug]: output 		- function end\n");
