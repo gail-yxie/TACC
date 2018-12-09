@@ -45,7 +45,7 @@ void output(struct Parameter* solver)
 			data[i][0] = solver->xmin + i * solver->h;
 			data[i][1] = solver->z[i];
 			if(solver->verify_mode == 1)
-				data[i][3] = solver->u[i];	
+				data[i][2] = solver->u[i];	
 		}
 	
 	if(solver->dimensions == 2)	
