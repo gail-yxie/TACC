@@ -25,7 +25,7 @@ void output(struct Parameter* solver)
 	
 	int 	 ny;
 	double** data;
-	double N = solver->N;
+	int N = solver->N;
 	
 	if(solver->dimensions == 1)
 		ny = 2;
