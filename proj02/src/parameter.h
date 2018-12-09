@@ -36,6 +36,8 @@ struct Parameter{
 
 	double* b;
 	double* z;
+	double* cor_x;
+	double* cor_y;
 	int n;
 	
 	/* theorectical values*/
