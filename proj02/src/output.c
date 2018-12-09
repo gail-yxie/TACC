@@ -71,6 +71,11 @@ void output(struct Parameter* solver)
 	dataset = H5Dcreate2(file, "heat eq sol", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	/* Write the data to the dataset using default transfer properties. */
 	status = H5Dwrite(dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, data);
+	if(status!=1)
+	{
+		printf("Error!Can not write the output file!\n");
+		exit(1);
+	}
 	/* Close/release resources. */
 	H5Sclose(dataspace);
 	H5Dclose(dataset);
