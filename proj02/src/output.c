@@ -42,10 +42,13 @@ void output(struct Parameter* solver)
 	if(solver->dimensions == 1)
 		for(i=0;i<=N;i++)
 		{
-			data[i][0] = solver->xmin + i * solver->h;
-			data[i][1] = solver->z[i];
-			if(solver->verify_mode == 1)
-				data[i][2] = solver->u[i];	
+			//data[i][0] = solver->xmin + i * solver->h;
+			//data[i][1] = solver->z[i];
+			//if(solver->verify_mode == 1)
+				//data[i][2] = solver->u[i];
+			data[i][0] = 0.0+i;
+			data[i][1] = 1.0+i;
+			data[i][2] = 2.0+i;
 		}
 	
 	if(solver->dimensions == 2)	
