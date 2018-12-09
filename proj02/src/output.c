@@ -8,16 +8,6 @@ void output(struct Parameter* solver)
 	if(solver->output_mode != 0)
 		printf("   --> Writing output to sol.dat\n");
 	
-	/* Write solutions of heat equation to file output_file self-defined */
-	// need to be comment
-	//FILE *fp = NULL;
-	//fp = fopen(solver->output_file,"w+");
-	
-	//for(i=0;i<solver->n;i++)
-		//fprintf(fp, "%.18f ",solver->z[i]);
-	//fprintf(fp, "\n");
-	//fclose(fp);
-	
 	/* Write solutions of heat equation to file output_file HDF5 */
 	hid_t    file, group, dataset, dataspace;	/* file and dataset handles */
 	hsize_t  dimsf[1];			/* dataset dimensions */
@@ -29,11 +19,20 @@ void output(struct Parameter* solver)
 	dimsf[0] = solver->n;
 	dataspace = H5Screate_simple(1, dimsf, NULL);
 	/* Create the dataset using defined dataspace and default properties. */
-	dataset = H5Dcreate2(file, "cor_x", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+	dataset = H5Dcreate2(file, "x", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 	/* Write the data to the dataset using default transfer properties. */
 	status = H5Dwrite(dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, solver->cor_x);
 	H5Sclose(dataspace);
 	H5Dclose(dataset);
+	
+	if(solver->dimensions == 2)
+	{
+		dataspace = H5Screate_simple(1, dimsf, NULL);
+		dataset = H5Dcreate2(file, "y", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+		status = H5Dwrite(dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, solver->cor_y);
+		H5Sclose(dataspace);
+		H5Dclose(dataset);	
+	}
 	
 	dataspace = H5Screate_simple(1, dimsf, NULL);
 	dataset = H5Dcreate2(file, "T_sol", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
@@ -41,8 +40,16 @@ void output(struct Parameter* solver)
 	H5Sclose(dataspace);
 	H5Dclose(dataset);
 	
-	/* Close/release resources. */
+	if(solver->verify_mode == 1)
+	{
+		dataspace = H5Screate_simple(1, dimsf, NULL);
+		dataset = H5Dcreate2(file, "T_exact", H5T_NATIVE_DOUBLE, dataspace, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+		status = H5Dwrite(dataset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, solver->u);
+		H5Sclose(dataspace);
+		H5Dclose(dataset);
+	}
 	
+	/* Close/release resources. */
 	H5Fclose(file);
 	
 	if(status!=0)
