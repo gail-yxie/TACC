@@ -1,3 +1,4 @@
+#!/bin/bash
 # This should work on Stampede2
 
 autoreconf -f -i
