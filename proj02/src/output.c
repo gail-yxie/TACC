@@ -4,7 +4,7 @@ void output(struct Parameter* solver)
 {
 	grvy_timer_begin(__func__);
 	
-	int i;
+	int i, j;
 	if(solver->output_mode != 0)
 		printf("   --> Writing output to sol.dat\n");
 	
@@ -25,6 +25,7 @@ void output(struct Parameter* solver)
 	
 	int 	 ny;
 	double** data;
+	double N = solver->N;
 	
 	if(solver->dimensions == 1)
 		ny = 2;
@@ -36,10 +37,10 @@ void output(struct Parameter* solver)
 	/* Initialize data buffer. */
 	data = (double**)malloc(sizeof(double*) * solver->n);
 	for(i=0;i<solver->n;i++)
-		data = (double*)malloc(sizeof(double) * ny);
+		data[i] = (double*)malloc(sizeof(double) * ny);
 	
 	if(solver->dimensions == 1)
-		for(i=0;i<=solver->N;i++)
+		for(i=0;i<=N;i++)
 		{
 			data[i][0] = solver->xmin + i * solver->h;
 			data[i][1] = solver->z[i];
@@ -48,8 +49,8 @@ void output(struct Parameter* solver)
 		}
 	
 	if(solver->dimensions == 2)	
-		for(i=0;i<=solver->N;i++)
-			for(j=0;j<=solver->N;j++)
+		for(i=0;i<=N;i++)
+			for(j=0;j<=N;j++)
 			{
 				data[i*(N+1)+j][0] = solver->xmin + i * solver->h;
 				data[i*(N+1)+j][1] = solver->ymin + j * solver->h;
