@@ -84,6 +84,13 @@ void solve_system(struct Parameter* solver)
 		free(old_z);
 	}
 	
+	#ifdef INCLUDE_PETC
+	//write PETSC code
+	if(solver->iter_method == 3)
+	{
+	}
+	#endif
+	
 	/* Print number of iterations */
 	if(solver->output_mode != 0)
 		printf("   --> Converged at iter: %d\n", k);
