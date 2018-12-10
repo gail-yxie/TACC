@@ -17,4 +17,3 @@ endif
 if PETSC_ENABLED
 	solver_LDADD += ${PETSC_LIB}
 endif
-
