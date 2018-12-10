@@ -82,7 +82,7 @@ void parse_input(struct Parameter* solver, const char* input_file)
 	grvy_input_fread_double("solver/eps",&solver->eps);
 	grvy_input_fread_int("solver/max_iter",&solver->max_iter);
 	
-	if((solver->iter_method!=1) && (solver->iter_method!=2))
+	if((solver->iter_method!=1) && (solver->iter_method!=2) && (solver->iter_method!=3))
 	{
 		printf("Error! Please input a correct iter_method!\n");
 		exit(1);
