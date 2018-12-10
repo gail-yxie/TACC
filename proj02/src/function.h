@@ -6,6 +6,11 @@
 #include <masa.h>
 #include "hdf5.h"
 
+#ifdef INCLUDE_PETSC
+#include "petsc.h"
+#include "petscksp.h"
+#endif
+
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
