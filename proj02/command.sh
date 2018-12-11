@@ -14,5 +14,13 @@ module swap intel gnu7
 which gcc
 
 module load hdf5
+module load petsc 
+
 # configure 
-./configure --with-masa=$PKGPATH/masa-gnu7-0.50 --with-grvy=$PKGPATH/grvy-gnu7-0.34 --with-hdf5=$TACC_HDF5_DIR --enable-coverage
+./configure CC=gcc --with-masa=$PKGPATH/masa-gnu7-0.50 --with-grvy=$PKGPATH/grvy-gnu7-0.34 --with-hdf5=$TACC_HDF5_DIR --enable-coverage
+
+# when choose different option, remeber to use make clean
+make clean
+
+# choose PETSC
+./configure CC=mpicc --with-masa=$PKGPATH/masa-gnu7-0.50 --with-grvy=$PKGPATH/grvy-gnu7-0.34 --with-hdf5=$TACC_HDF5_DIR --with-petsc=$PETSC_DIR

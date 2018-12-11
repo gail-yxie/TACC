@@ -87,7 +87,7 @@ void solve_system(struct Parameter* solver)
 	else if(solver->iter_method == 3)
 	{
 		printf("before petsc\n");
-		#ifdef INCLUDE_PETSC
+		#ifdef HAVE_PETSC
 		printf("after petsc\n");
 		//write PETSC code
 		/* Define needed variables */

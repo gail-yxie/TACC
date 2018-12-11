@@ -5,8 +5,9 @@
 #include <grvy.h>
 #include <masa.h>
 #include "hdf5.h"
+#include "config.h"
 
-#ifdef INCLUDE_PETSC
+#ifdef HAVE_PETSC
 #include "petsc.h"
 #include "petscksp.h"
 #endif
