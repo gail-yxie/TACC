@@ -15,5 +15,5 @@ if PETSC_ENABLED
 endif
 
 if PETSC_ENABLED
-	solver_LDADD += ${PETSC_LIB}
+	solver_LDADD = ${PETSC_LIB}
 endif
