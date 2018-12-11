@@ -88,6 +88,51 @@ void solve_system(struct Parameter* solver)
 	//write PETSC code
 	if(solver->iter_method == 3)
 	{
+		/* Define needed variables */
+		// how about u?
+		Vec            x, b, u;      /* approx solution, RHS, exact solution */
+		Mat            A;            /* linear system matrix */
+		KSP            ksp;          /* linear solver context */
+		PC             pc;           /* preconditioner context */
+		PetscReal      norm;         /* norm of solution error */
+		PetscErrorCode ierr;
+		PetscInt       nn=5;
+		
+		if(solver->dimensions==1 && solver->fd_method==2)
+			nn = 3;
+		if(solver->dimensions==2 && solver->fd_method==4)
+			nn = 9;
+
+		//PetscMPIInt    size; //???
+		//PetscBool      nonzeroguess = PETSC_FALSE,changepcside = PETSC_FALSE; //???
+		
+		/* Initialization */
+		ierr = PetscInitialize(&argc, &args, 0, 0);
+		CHKERRQ(ierr);
+		
+		/* Creat Matrix */
+		MatCreate(PETSC_COMM_WORLD, &A);
+		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
+		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
+		//MatSetFromOptions(A); ???
+		//MatSetUp(A); ???
+		for(i=0;i<solver->n;i++)
+			MatSetValues(A,1,&i,solver->nonzero[i],solver->col[i],solver->val[i],INSERT_VALUES);
+		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
+		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
+		MatView(A,0);
+		
+		/* Creat Vector */
+		//VecCreate(PETSC_COMM_WORLD,&x);
+		//VecSetSizes(x,PETSC_DECIDE,n);
+		//VecSetFromOptions(x);
+		//VecDuplicate(x,&b);
+		//VecDuplicate(x,&u);
+		
+		
+		/* Finalize the function*/
+		ierr = PetscFinalize();
+		CHKERRQ(ierr);	
 	}
 	#endif
 	
