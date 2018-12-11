@@ -14,6 +14,12 @@ int main(int argc, char *argv[])
 
 	grvy_timer_init("Steady Heat Equation Solver");
 	
+	#ifdef INCLUDE_PETSC
+		/* Initialization */
+		ierr = PetscInitialize(&argc, &args, 0, 0);
+		CHKERRQ(ierr);
+	#endif
+	
 	/* Run functions step by step*/ 	
 	parse_input(&solver, argv[1]);
 	init(&solver);

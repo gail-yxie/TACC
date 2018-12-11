@@ -108,10 +108,6 @@ void solve_system(struct Parameter* solver)
 		//PetscMPIInt    size; //???
 		//PetscBool      nonzeroguess = PETSC_FALSE,changepcside = PETSC_FALSE; //???
 		
-		/* Initialization */
-		ierr = PetscInitialize(&argc, &args, 0, 0);
-		CHKERRQ(ierr);
-		
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
