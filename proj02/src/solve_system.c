@@ -121,6 +121,7 @@ void solve_system(struct Parameter* solver)
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
 		MatView(A,0);
+		printf("ok, you can use petsc.\n");
 		
 		/* Creat Vector */
 		//VecCreate(PETSC_COMM_WORLD,&x);
