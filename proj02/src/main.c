@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	#ifdef INCLUDE_PETSC
 		/* Initialization */
 		PetscErrorCode ierr;
-		ierr = PetscInitialize(&argc, &args, 0, 0);
+		ierr = PetscInitialize(&argc, &argv, 0, 0);
 		CHKERRQ(ierr);
 	#endif
 	

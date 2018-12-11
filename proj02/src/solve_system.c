@@ -129,8 +129,7 @@ void solve_system(struct Parameter* solver)
 		
 		
 		/* Finalize the function*/
-		ierr = PetscFinalize();
-		CHKERRQ(ierr);	
+		PetscFinalize();
 		
 		#endif
 	}
