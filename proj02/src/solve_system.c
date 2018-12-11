@@ -97,7 +97,6 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             pc;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscErrorCode ierr;
 		PetscInt       nn=5;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
