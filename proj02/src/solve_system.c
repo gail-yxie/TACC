@@ -84,10 +84,10 @@ void solve_system(struct Parameter* solver)
 		free(old_z);
 	}
 	
-	#ifdef INCLUDE_PETC
-	//write PETSC code
-	if(solver->iter_method == 3)
+	else if(solver->iter_method == 3)
 	{
+		#ifdef INCLUDE_PETC
+		//write PETSC code
 		/* Define needed variables */
 		// how about u?
 		Vec            x, b, u;      /* approx solution, RHS, exact solution */
@@ -134,8 +134,9 @@ void solve_system(struct Parameter* solver)
 		/* Finalize the function*/
 		ierr = PetscFinalize();
 		CHKERRQ(ierr);	
+		
+		#endif
 	}
-	#endif
 	
 	/* Print number of iterations */
 	if(solver->output_mode != 0)
