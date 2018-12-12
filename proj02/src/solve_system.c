@@ -84,18 +84,17 @@ void solve_system(struct Parameter* solver)
 		free(old_z);
 	}
 	
+	#ifdef HAVE_PETSC
 	else if(solver->iter_method == 3)
 	{
-		printf("before petsc\n");
-		#ifdef HAVE_PETSC
-		printf("after petsc\n");
+		
 		//write PETSC code
 		/* Define needed variables */
 		// how about u?
-		Vec            x, b, u;      /* approx solution, RHS, exact solution */
+		Vec            Rhs, Sol;      /* approx solution, RHS, exact solution */
 		Mat            A;            /* linear system matrix */
 		KSP            ksp;          /* linear solver context */
-		PC             pc;           /* preconditioner context */
+		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
 		PetscInt       nn=5;
 		
@@ -114,25 +113,48 @@ void solve_system(struct Parameter* solver)
 		//MatSetFromOptions(A); ???
 		//MatSetUp(A); ???
 		for(i=0;i<solver->n;i++)
-			MatSetValues(A,1,&i,solver->nonzero[i],solver->col[i],solver->val[i],INSERT_VALUES);
+			MatSetValues(A,1,&i,solver->nonzero[i],&solver->col[i],&solver->val[i],INSERT_VALUES);
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
-		MatView(A,0);
+		
 		printf("ok, you can use petsc.\n");
 		
 		/* Creat Vector */
-		//VecCreate(PETSC_COMM_WORLD,&x);
-		//VecSetSizes(x,PETSC_DECIDE,n);
-		//VecSetFromOptions(x);
-		//VecDuplicate(x,&b);
-		//VecDuplicate(x,&u);
+		VecCreate(PETSC_COMM_WORLD,&Rhs);
+		VecSetSizes(Rhs,PETSC_DECIDE,solver->n);
+		VecDuplicate(Rhs,&Sol);
 		
+		/* Set RHS vector values*/
+		for(i=0;i<solver->n;i++)
+			VecSetValues(Rhs,1,&i,&solver->b[i],INSERT_VALUES);
+		VecAssemblyBegin(Rhs);
+		VecAssemblyEnd(Rhs);
+		
+		/* Create linear solver context */
+		KSPCreate(PETSC_COMM_WORLD,&ksp);
+		KSPSetOperators(ksp,A,A,0);
+		KSPSetType(ksp,KSPGMRES);
+		KSPSetTolerances(ksp,rtol,atol,dtol,maxit);
+		//tolerance??
+		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps*sqrt(solver->n),PETSC_DEFAULT,solver->max_iter);
+		
+		/* Set solver pre-conditioner */
+		KSPGetPC(ksp,&Prec);
+		PCSetType(Prec,PCBJACOBI); 
+		
+		/* Solve Linear System */ 
+		KSPSolve(ksp,Rhs,Sol);
+		
+		/* Cleanup Functions */
+		ierr = KSPDestroy(ksp); CHKERRQ(ierr);
+		ierr = VecDestroy(Rhs); CHKERRQ(ierr);
+		ierr = VecDestroy(Sol); CHKERRQ(ierr);
 		
 		/* Finalize the function*/
 		PetscFinalize();
-		
-		#endif
+			
 	}
+	#endif
 	
 	/* Print number of iterations */
 	if(solver->output_mode != 0)
