@@ -97,23 +97,20 @@ void solve_system(struct Parameter* solver)
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
 		PetscInt       nn=5;
+		PetscErrorCode ierr;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
 			nn = 3;
 		if(solver->dimensions==2 && solver->fd_method==4)
 			nn = 9;
-
-		//PetscMPIInt    size; //???
-		//PetscBool      nonzeroguess = PETSC_FALSE,changepcside = PETSC_FALSE; //???
 		
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
-		//MatSetFromOptions(A); ???
-		//MatSetUp(A); ???
+		
 		for(i=0;i<solver->n;i++)
-			MatSetValues(A,1,&i,solver->nonzero[i],&solver->col[i],&solver->val[i],INSERT_VALUES);
+			MatSetValues(A,1,&i,solver->nonzero[i],solver->col[i],solver->val[i],INSERT_VALUES);
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
 		
@@ -132,9 +129,8 @@ void solve_system(struct Parameter* solver)
 		
 		/* Create linear solver context */
 		KSPCreate(PETSC_COMM_WORLD,&ksp);
-		KSPSetOperators(ksp,A,A,0);
+		KSPSetOperators(ksp,A,A);
 		KSPSetType(ksp,KSPGMRES);
-		KSPSetTolerances(ksp,rtol,atol,dtol,maxit);
 		//tolerance??
 		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps*sqrt(solver->n),PETSC_DEFAULT,solver->max_iter);
 		
@@ -146,9 +142,9 @@ void solve_system(struct Parameter* solver)
 		KSPSolve(ksp,Rhs,Sol);
 		
 		/* Cleanup Functions */
-		ierr = KSPDestroy(ksp); CHKERRQ(ierr);
-		ierr = VecDestroy(Rhs); CHKERRQ(ierr);
-		ierr = VecDestroy(Sol); CHKERRQ(ierr);
+		ierr = KSPDestroy(&ksp); CHKERRQ(ierr);
+		ierr = VecDestroy(&Rhs); CHKERRQ(ierr);
+		ierr = VecDestroy(&Sol); CHKERRQ(ierr);
 		
 		/* Finalize the function*/
 		PetscFinalize();
