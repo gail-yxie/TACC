@@ -104,6 +104,7 @@ void solve_system(struct Parameter* solver)
 		if(solver->dimensions==2 && solver->fd_method==4)
 			nn = 9;
 		
+		printf("Before creating matrix...\n");
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
