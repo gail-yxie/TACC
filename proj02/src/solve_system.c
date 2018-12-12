@@ -110,6 +110,8 @@ void solve_system(struct Parameter* solver)
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
 		
+		printf("Before setting salued...\n");
+		
 		for(i=0;i<solver->n;i++)
 			MatSetValues(A,1,&i,solver->nonzero[i],solver->col[i],solver->val[i],INSERT_VALUES);
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
