@@ -19,15 +19,30 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscInt       i,nn=5,n;
-		int	       j;
+		PetscInt       i,j,nn=5,n;
+		PetscScalar    b;
 		PetscErrorCode ierr;
 		
 		n = solver->n;
+		
 		if(solver->dimensions==1 && solver->fd_method==2)
+		{
+			Petscint       col[3];
+			PetscScalar    val[3];
 			nn = 3;
+			
+		}
 		if(solver->dimensions==2 && solver->fd_method==4)
+		{
+			Petscint       col[9];
+			PetscScalar    val[9];
 			nn = 9;
+		}
+		else
+		{
+			Petscint       col[5];
+			PetscScalar    val[5];
+		}
 		
 		printf("Before creating matrix...\n");
 		/* Creat Matrix */
@@ -35,13 +50,22 @@ void solve_system(struct Parameter* solver)
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n, n);
 		//MatSetFromOptions(A);
 		//MatSetUp(A);
-		
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
 		
 		printf("Before setting salued...\n");
 		
 		for(i=0;i<n;i++)
-			MatSetValues(A,1,&i,1,solver->col[i],solver->val[i],INSERT_VALUES);
+			if(solver->nonzero[i]!=1)
+			{
+				for(j=0;j<nn;j++)
+				{
+					col[j] = solver->col[i][j];
+					val[j] = solver->val[i][j];
+				}
+				MatSetValues(A,1,&i,nn,col,val,INSERT_VALUES);
+			}
+			else
+				MatSetValues(A,1,&i,1,&i,1,INSERT_VALUES);
 		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
@@ -54,8 +78,12 @@ void solve_system(struct Parameter* solver)
 		VecDuplicate(Rhs,&Sol);
 		
 		/* Set RHS vector values*/
+		
 		for(i=0;i<n;i++)
-			VecSetValues(Rhs,1,&i,solver->b[i],INSERT_VALUES);
+		{
+			b = solver->b[i];
+			VecSetValues(Rhs,1,&i,b,INSERT_VALUES);
+		}
 		VecAssemblyBegin(Rhs);
 		VecAssemblyEnd(Rhs);
 		
