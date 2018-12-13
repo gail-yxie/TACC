@@ -33,14 +33,11 @@ void solve_system(struct Parameter* solver)
 		PetscMalloc1(nn,&Col);
 		PetscMalloc1(nn,&Val);
 		
-		printf("Before creating matrix...\n");
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n, n);
 		MatSetUp(A);
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
-		
-		printf("Before setting valued...\n");
 		
 		for(i=0;i<n;i++)
 			if(solver->nonzero[i]!=1)
@@ -57,9 +54,7 @@ void solve_system(struct Parameter* solver)
 		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
-		MatView(A,0);
-		
-		printf("ok, you can use petsc.\n");
+		//MatView(A,0); use if you want to see the matrix
 		
 		/* Creat Vector */
 		VecCreate(PETSC_COMM_WORLD,&Rhs);
@@ -76,7 +71,7 @@ void solve_system(struct Parameter* solver)
 		}
 		VecAssemblyBegin(Rhs);
 		VecAssemblyEnd(Rhs);
-		VecView(Rhs,0);
+		//VecView(Rhs,0);
 		
 		/* Create linear solver context */
 		KSPCreate(PETSC_COMM_WORLD,&ksp);
@@ -88,7 +83,7 @@ void solve_system(struct Parameter* solver)
 		KSPSolve(ksp,Rhs,Sol);
 		VecAssemblyBegin(Sol);
 		VecAssemblyEnd(Sol);
-		VecView(Sol,0);
+		//VecView(Sol,0);
 		
 		for(i=0;i<n;i++)
 			VecGetValues(Sol,1,&i,&solver->z[i]);
