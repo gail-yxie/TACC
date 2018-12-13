@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	init(&solver);
 	build_linear_system(&solver);
 	
+	grvy_timer_begin("PETSC_Initialization");
 	#ifdef HAVE_PETSC
 	if(solver.iter_method==3)
 	{
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 		CHKERRQ(ierr);
 	}
 	#endif
+	grvy_timer_end("PETSC_Initialization");
 	
 	solve_system(&solver);
 	output(&solver);
