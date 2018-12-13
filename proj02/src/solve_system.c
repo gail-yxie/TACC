@@ -37,7 +37,7 @@ void solve_system(struct Parameter* solver)
 			nn = 9;
 		
 		PetscMalloc1(nn,&Col);
-		PetscMalloc1(nn,&Vol);
+		PetscMalloc1(nn,&Val);
 		
 		printf("Before creating matrix...\n");
 		/* Creat Matrix */
