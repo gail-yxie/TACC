@@ -10,6 +10,7 @@ void solve_system(struct Parameter* solver)
 	int n = solver->n;
 	solver->z  = (double*)malloc(n*sizeof(double));
 	
+	/* Solve linear system using PETSC GMRES method */
 	#ifdef HAVE_PETSC
 	if(solver->iter_method == 3)
 	{
@@ -74,13 +75,15 @@ void solve_system(struct Parameter* solver)
 		//VecView(Rhs,0);
 		
 		/* Create linear solver context */
-		KSPCreate(PETSC_COMM_WORLD,&ksp);
-		KSPSetOperators(ksp,A,A);
-		KSPSetType(ksp,KSPGMRES);
-		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps,PETSC_DEFAULT,solver->max_iter);
+		ierr = KSPCreate(PETSC_COMM_WORLD,&ksp);
+		ierr = KSPSetOperators(ksp,A,A);
+		CHKERRV(ierr);
+		ierr = KSPSetType(ksp,KSPGMRES); CHKERRV(ierr);
+		ierr = KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps,PETSC_DEFAULT,solver->max_iter);
+		CHKERRV(ierr);
 		 
 		/* Solve Linear System */ 
-		KSPSolve(ksp,Rhs,Sol);
+		ierr = KSPSolve(ksp,Rhs,Sol); CHKERRV(ierr);
 		VecAssemblyBegin(Sol);
 		VecAssemblyEnd(Sol);
 		//VecView(Sol,0);
@@ -94,12 +97,9 @@ void solve_system(struct Parameter* solver)
 		ierr = VecDestroy(&Sol); CHKERRV(ierr);
 		
 		/* Finalize the function*/
-		PetscFinalize();
-			
+		PetscFinalize();	
 	}
 	#endif
-	
-		
 	
 	/* Solve linear system using Jacobi iteration */
 	if(solver->iter_method == 1)
