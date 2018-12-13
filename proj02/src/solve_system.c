@@ -94,7 +94,7 @@ void solve_system(struct Parameter* solver)
 		KSPSolve(ksp,Rhs,Sol);
 		
 		// how to do the output??
-		VecGetArray(vec,&solver->z);
+		VecGetArray(Sol,&solver->z);
 		
 		/* Cleanup Functions */
 		//??check error?
