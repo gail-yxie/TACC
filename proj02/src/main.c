@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	build_linear_system(&solver);
 	
 	#ifdef HAVE_PETSC
-	if(solver.method==3)
+	if(solver.iter_method==3)
 	{
 		/* Initialization */
 		PetscErrorCode ierr;
