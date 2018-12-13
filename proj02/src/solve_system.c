@@ -76,6 +76,7 @@ void solve_system(struct Parameter* solver)
 		}
 		VecAssemblyBegin(Rhs);
 		VecAssemblyEnd(Rhs);
+		VecView(Rhs,0);
 		
 		/* Create linear solver context */
 		KSPCreate(PETSC_COMM_WORLD,&ksp);
@@ -85,6 +86,9 @@ void solve_system(struct Parameter* solver)
 		 
 		/* Solve Linear System */ 
 		KSPSolve(ksp,Rhs,Sol);
+		VecAssemblyBegin(Sol);
+		VecAssemblyEnd(Sol);
+		VecView(Sol,0);
 		
 		// how to do the output??
 		VecGetArray(Sol,&solver->z);
