@@ -16,12 +16,10 @@ void solve_system(struct Parameter* solver)
 		
 		//write PETSC code
 		/* Define needed variables */
-		// how about u?
 		Vec            Rhs, Sol;      /* approx solution, RHS, exact solution */
 		Mat            A;            /* linear system matrix */
 		KSP            ksp;          /* linear solver context */
-		PC             Prec;           /* preconditioner context */
-		PetscReal      norm;         /* norm of solution error */
+		//PC             Prec;           /* preconditioner context */
 		PetscInt       i,j,nn=5;
 		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
@@ -43,10 +41,10 @@ void solve_system(struct Parameter* solver)
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n, n);
-		MatSetFromOptions(A);
+		MatSetUp(A);
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
 		
-		printf("Before setting salued...\n");
+		printf("Before setting valued...\n");
 		
 		for(i=0;i<n;i++)
 			if(solver->nonzero[i]!=1)
@@ -69,7 +67,7 @@ void solve_system(struct Parameter* solver)
 		/* Creat Vector */
 		VecCreate(PETSC_COMM_WORLD,&Rhs);
 		VecSetSizes(Rhs,PETSC_DECIDE,n);
-		VecSetFromOptions(Rhs);
+		VecSetUp(Rhs);
 		VecDuplicate(Rhs,&Sol);
 		
 		/* Set RHS vector values*/
@@ -86,12 +84,11 @@ void solve_system(struct Parameter* solver)
 		KSPCreate(PETSC_COMM_WORLD,&ksp);
 		KSPSetOperators(ksp,A,A);
 		KSPSetType(ksp,KSPGMRES);
-		//tolerance?? sqrt n?
 		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps,PETSC_DEFAULT,solver->max_iter);
 		
 		/* Set solver pre-conditioner */
-		KSPGetPC(ksp,&Prec);
-		PCSetType(Prec,PCBJACOBI); 
+		//KSPGetPC(ksp,&Prec);
+		//PCSetType(Prec,PCBJACOBI); 
 		
 		/* Solve Linear System */ 
 		KSPSolve(ksp,Rhs,Sol);
@@ -100,7 +97,6 @@ void solve_system(struct Parameter* solver)
 		VecGetArray(Sol,&solver->z);
 		
 		/* Cleanup Functions */
-		//??check error?
 		ierr = KSPDestroy(&ksp); CHKERRV(ierr);
 		ierr = VecDestroy(&Rhs); CHKERRV(ierr);
 		ierr = VecDestroy(&Sol); CHKERRV(ierr);
