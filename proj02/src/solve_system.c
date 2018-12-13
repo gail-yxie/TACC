@@ -7,6 +7,8 @@ void solve_system(struct Parameter* solver)
 	if(solver->output_mode !=0)
 		printf("\n\n** Solving linear system...\n");
 	
+	solver->z  = (double*)malloc(n*sizeof(double));
+	
 	#ifdef HAVE_PETSC
 	if(solver->iter_method == 3)
 	{
@@ -90,6 +92,10 @@ void solve_system(struct Parameter* solver)
 		/* Solve Linear System */ 
 		KSPSolve(ksp,Rhs,Sol);
 		
+		// how to do the output??
+		for(i=0;i<n;i++)
+			solver->z[i] = Sol[i];
+		
 		/* Cleanup Functions */
 		//??check error?
 		ierr = KSPDestroy(&ksp); 
@@ -116,7 +122,6 @@ void solve_system(struct Parameter* solver)
 		/* Ask for dynamic memory */
 		double* old_z;	
 		old_z = (double*)malloc(n*sizeof(double));
-		solver->z  = (double*)malloc(n*sizeof(double));
 		for(i=0;i<n;i++)
 			old_z[i] = 0;
 		
@@ -161,7 +166,7 @@ void solve_system(struct Parameter* solver)
 		/* Ask for dynamic memory */
 		double* old_z;	
 		old_z = (double*)malloc(n*sizeof(double));
-		solver->z  = (double*)malloc(n*sizeof(double));
+		
 		for(i=0;i<n;i++)
 			old_z[i] = 0;
 		
