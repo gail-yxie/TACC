@@ -79,8 +79,11 @@ void solve_system(struct Parameter* solver)
 	}
 	#endif
 	
-	else
-	{
+		
+	
+	/* Solve linear system using Jacobi iteration */
+	if(solver->iter_method == 1)
+	{	
 		int i, j;
 		int k=0;
 		double diag = 1;
@@ -91,13 +94,9 @@ void solve_system(struct Parameter* solver)
 		double* old_z;	
 		old_z = (double*)malloc(n*sizeof(double));
 		solver->z  = (double*)malloc(n*sizeof(double));
-	}
-	
-	/* Solve linear system using Jacobi iteration */
-	if(solver->iter_method == 1)
-	{	
 		for(i=0;i<n;i++)
-			old_z[i] = 0;	
+			old_z[i] = 0;
+		
 		for(k=0;k<solver->max_iter;k++)
 		{
 			for(i=0;i<n;i++)
@@ -128,6 +127,19 @@ void solve_system(struct Parameter* solver)
 	/* Solve linear system using Gauss-Seidel iteration */
 	else if(solver->iter_method == 2)
 	{
+		int i, j;
+		int k=0;
+		double diag = 1;
+		int n = solver->n;
+		double tmp;
+
+		/* Ask for dynamic memory */
+		double* old_z;	
+		old_z = (double*)malloc(n*sizeof(double));
+		solver->z  = (double*)malloc(n*sizeof(double));
+		for(i=0;i<n;i++)
+			old_z[i] = 0;
+		
 		for(i=0;i<n;i++)
 		{
 			solver->z[i] = 0;
