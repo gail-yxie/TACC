@@ -19,17 +19,17 @@ int main(int argc, char *argv[])
 	init(&solver);
 	build_linear_system(&solver);
 	
-	grvy_timer_begin("PETSC_Initialization");
 	#ifdef HAVE_PETSC
+	grvy_timer_begin("PETSC_Initialization");
 	if(solver.iter_method==3)
 	{
-		/* Initialization */
+		/* Initialization PETSC*/
 		PetscErrorCode ierr;
 		ierr = PetscInitialize(&argc, &argv, 0, 0);
 		CHKERRQ(ierr);
 	}
-	#endif
 	grvy_timer_end("PETSC_Initialization");
+	#endif
 	
 	solve_system(&solver);
 	output(&solver);
