@@ -20,27 +20,27 @@ void solve_system(struct Parameter* solver)
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
 		PetscInt       i,j,nn=5,n;
-		PetscScalar    b;
+		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
 		
 		n = solver->n;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
 		{
-			Petscint       col[3];
+			PetscInt       col[3];
 			PetscScalar    val[3];
 			nn = 3;
 			
 		}
 		if(solver->dimensions==2 && solver->fd_method==4)
 		{
-			Petscint       col[9];
+			PetscInt       col[9];
 			PetscScalar    val[9];
 			nn = 9;
 		}
 		else
 		{
-			Petscint       col[5];
+			PetscInt       col[5];
 			PetscScalar    val[5];
 		}
 		
@@ -65,7 +65,7 @@ void solve_system(struct Parameter* solver)
 				MatSetValues(A,1,&i,nn,col,val,INSERT_VALUES);
 			}
 			else
-				MatSetValues(A,1,&i,1,&i,1,INSERT_VALUES);
+				MatSetValues(A,1,&i,1,&i,one,INSERT_VALUES);
 		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
@@ -82,7 +82,7 @@ void solve_system(struct Parameter* solver)
 		for(i=0;i<n;i++)
 		{
 			b = solver->b[i];
-			VecSetValues(Rhs,1,&i,b,INSERT_VALUES);
+			VecSetValues(Rhs,1,&i,&b,INSERT_VALUES);
 		}
 		VecAssemblyBegin(Rhs);
 		VecAssemblyEnd(Rhs);
@@ -102,9 +102,10 @@ void solve_system(struct Parameter* solver)
 		KSPSolve(ksp,Rhs,Sol);
 		
 		/* Cleanup Functions */
-		ierr = KSPDestroy(&ksp); CHKERRQ(ierr);
-		ierr = VecDestroy(&Rhs); CHKERRQ(ierr);
-		ierr = VecDestroy(&Sol); CHKERRQ(ierr);
+		//??check error?
+		ierr = KSPDestroy(&ksp); 
+		ierr = VecDestroy(&Rhs); 
+		ierr = VecDestroy(&Sol); 
 		
 		/* Finalize the function*/
 		PetscFinalize();
