@@ -23,26 +23,15 @@ void solve_system(struct Parameter* solver)
 		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
 		
+		PetscInt       col[9];
+		PetscScalar    val[9];
+		
 		n = solver->n;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
-		{
-			PetscInt       col[3];
-			PetscScalar    val[3];
 			nn = 3;
-			
-		}
 		if(solver->dimensions==2 && solver->fd_method==4)
-		{
-			PetscInt       col[9];
-			PetscScalar    val[9];
 			nn = 9;
-		}
-		else
-		{
-			PetscInt       col[5];
-			PetscScalar    val[5];
-		}
 		
 		printf("Before creating matrix...\n");
 		/* Creat Matrix */
