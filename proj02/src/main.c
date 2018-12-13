@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	init(&solver);
 	build_linear_system(&solver);
 	
-	#ifdef INCLUDE_PETSC
+	#ifdef HAVE_PETSC
 	if(solver.method==3)
 	{
 		/* Initialization */
