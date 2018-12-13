@@ -19,15 +19,11 @@ void solve_system(struct Parameter* solver)
 		Vec            Rhs, Sol;      /* approx solution, RHS, exact solution */
 		Mat            A;            /* linear system matrix */
 		KSP            ksp;          /* linear solver context */
-		//PC             Prec;           /* preconditioner context */
 		PetscInt       i,j,nn=5;
 		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
-		
 		PetscInt       *Col;
 		PetscScalar    *Val;
-		
-		n = solver->n;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
 			nn = 3;
@@ -61,6 +57,7 @@ void solve_system(struct Parameter* solver)
 		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
+		MatView(A,0);
 		
 		printf("ok, you can use petsc.\n");
 		
@@ -85,11 +82,7 @@ void solve_system(struct Parameter* solver)
 		KSPSetOperators(ksp,A,A);
 		KSPSetType(ksp,KSPGMRES);
 		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps,PETSC_DEFAULT,solver->max_iter);
-		
-		/* Set solver pre-conditioner */
-		//KSPGetPC(ksp,&Prec);
-		//PCSetType(Prec,PCBJACOBI); 
-		
+		 
 		/* Solve Linear System */ 
 		KSPSolve(ksp,Rhs,Sol);
 		
