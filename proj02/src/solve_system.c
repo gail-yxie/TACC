@@ -7,6 +7,7 @@ void solve_system(struct Parameter* solver)
 	if(solver->output_mode !=0)
 		printf("\n\n** Solving linear system...\n");
 	
+	int n = solver->n;
 	solver->z  = (double*)malloc(n*sizeof(double));
 	
 	#ifdef HAVE_PETSC
@@ -21,7 +22,7 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscInt       i,j,nn=5,n;
+		PetscInt       i,j,nn=5;
 		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
 		
@@ -93,8 +94,7 @@ void solve_system(struct Parameter* solver)
 		KSPSolve(ksp,Rhs,Sol);
 		
 		// how to do the output??
-		for(i=0;i<n;i++)
-			solver->z[i] = Sol[i];
+		VecGetArray(vec,&solver->z);
 		
 		/* Cleanup Functions */
 		//??check error?
@@ -116,7 +116,6 @@ void solve_system(struct Parameter* solver)
 		int i, j;
 		int k=0;
 		double diag = 1;
-		int n = solver->n;
 		double tmp;
 
 		/* Ask for dynamic memory */
@@ -160,7 +159,6 @@ void solve_system(struct Parameter* solver)
 		int i, j;
 		int k=0;
 		double diag = 1;
-		int n = solver->n;
 		double tmp;
 
 		/* Ask for dynamic memory */
