@@ -19,7 +19,8 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscInt       i,j,nn=5;
+		PetscInt       i,k,nn=5;
+		int	       j;
 		PetscErrorCode ierr;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
@@ -37,7 +38,10 @@ void solve_system(struct Parameter* solver)
 		
 		for(i=0;i<solver->n;i++)
 			for(j=0;j<solver->nonzero[i];j++);
-				MatSetValues(A,1,&i,1,&solver->col[i][j],&solver->val[i][j],INSERT_VALUES);
+			{
+				k = solver->col[i][j];
+				MatSetValues(A,1,&i,1,&k,&solver->val[i][j],INSERT_VALUES);
+			}
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
 		
@@ -122,6 +126,8 @@ void solve_system(struct Parameter* solver)
 					old_z[i] = solver->z[i];
 		}
 		free(old_z);
+		if(solver->output_mode != 0)
+			printf("   --> Converged at iter: %d\n", k);
 	}
 
 	/* Solve linear system using Gauss-Seidel iteration */
@@ -169,11 +175,11 @@ void solve_system(struct Parameter* solver)
 					old_z[i] = solver->z[i];
 		}
 		free(old_z);
+		/* Print number of iterations */
+		if(solver->output_mode != 0)
+			printf("   --> Converged at iter: %d\n", k);
 	}
 	
-	/* Print number of iterations */
-	if(solver->output_mode != 0)
-		printf("   --> Converged at iter: %d\n", k);
 	if(solver->output_mode == 2)
 	{
 		printf("\n[debug]: solve_system		- function end\n");
