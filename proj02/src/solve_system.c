@@ -26,8 +26,8 @@ void solve_system(struct Parameter* solver)
 		PetscScalar    b,one=1.0;
 		PetscErrorCode ierr;
 		
-		PetscInt       col[9];
-		PetscScalar    val[9];
+		PetscInt       *Col;
+		PetscScalar    *Val;
 		
 		n = solver->n;
 		
@@ -36,12 +36,14 @@ void solve_system(struct Parameter* solver)
 		if(solver->dimensions==2 && solver->fd_method==4)
 			nn = 9;
 		
+		PetscMalloc1(nn,&Col);
+		PetscMalloc1(nn,&Vol);
+		
 		printf("Before creating matrix...\n");
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
 		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n, n);
-		//MatSetFromOptions(A);
-		//MatSetUp(A);
+		MatSetFromOptions(A);
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
 		
 		printf("Before setting salued...\n");
@@ -51,10 +53,10 @@ void solve_system(struct Parameter* solver)
 			{
 				for(j=0;j<nn;j++)
 				{
-					col[j] = solver->col[i][j];
-					val[j] = solver->val[i][j];
+					Col[j] = solver->col[i][j];
+					Val[j] = solver->val[i][j];
 				}
-				MatSetValues(A,1,&i,nn,col,val,INSERT_VALUES);
+				MatSetValues(A,1,&i,nn,Col,Val,INSERT_VALUES);
 			}
 			else
 				MatSetValues(A,1,&i,1,&i,&one,INSERT_VALUES);
@@ -67,6 +69,7 @@ void solve_system(struct Parameter* solver)
 		/* Creat Vector */
 		VecCreate(PETSC_COMM_WORLD,&Rhs);
 		VecSetSizes(Rhs,PETSC_DECIDE,n);
+		VecSetFromOptions(Rhs);
 		VecDuplicate(Rhs,&Sol);
 		
 		/* Set RHS vector values*/
@@ -98,9 +101,9 @@ void solve_system(struct Parameter* solver)
 		
 		/* Cleanup Functions */
 		//??check error?
-		ierr = KSPDestroy(&ksp); 
-		ierr = VecDestroy(&Rhs); 
-		ierr = VecDestroy(&Sol); 
+		ierr = KSPDestroy(&ksp); CHKERRV(ierr);
+		ierr = VecDestroy(&Rhs); CHKERRV(ierr);
+		ierr = VecDestroy(&Sol); CHKERRV(ierr);
 		
 		/* Finalize the function*/
 		PetscFinalize();
