@@ -7,17 +7,19 @@ void solve_system(struct Parameter* solver)
 	if(solver->output_mode !=0)
 		printf("\n\n** Solving linear system...\n");
 	
-	int i, j;
-	int k=0;
-	double diag = 1;
-	int n = solver->n;
-	double tmp;
+	if(solver->iter_method!=3)
+	{
+		int i, j;
+		int k=0;
+		double diag = 1;
+		int n = solver->n;
+		double tmp;
 
-	/* Ask for dynamic memory */
-	double* old_z;	
-	old_z = (double*)malloc(n*sizeof(double));
-	solver->z  = (double*)malloc(n*sizeof(double));
-	
+		/* Ask for dynamic memory */
+		double* old_z;	
+		old_z = (double*)malloc(n*sizeof(double));
+		solver->z  = (double*)malloc(n*sizeof(double));
+	}
 	/* Solve linear system using Jacobi iteration */
 	if(solver->iter_method == 1)
 	{	
@@ -96,7 +98,7 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscInt       nn=5;
+		PetscInt       i,j,nn=5;
 		PetscErrorCode ierr;
 		
 		if(solver->dimensions==1 && solver->fd_method==2)
