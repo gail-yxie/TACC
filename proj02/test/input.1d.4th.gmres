@@ -20,7 +20,7 @@ N    = 128		# number of intervals in one axis, points are N+1 for 1D, (N+1)^2 fo
 
 [solver]
 
-fd_method   = 2			# 2 = second order, 4 = fourth order
-iter_method = 3   		# choose 1 for Jacobi or 2 for Gauss-Seidel
+fd_method   = 4			# 2 = second order, 4 = fourth order
+iter_method = 3   		# choose 1 for Jacobi or 2 for Gauss-Seidel 3 for GMRES with PETSC
 eps         = 1.0e-12		# iterative solver tolerance
 max_iter    = 250000		# max solver iterations

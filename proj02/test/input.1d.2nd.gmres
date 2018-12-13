@@ -15,7 +15,7 @@ xmin = 0                	# min x location [m]
 xmax = 1			# max x location [m]
 ymin = 0 			# min y location [m]
 ymax = 1			# max y location [m]
-N    = 99		# number of intervals in one axis, points are N+1 for 1D, (N+1)^2 for 2D.
+N    = 128		# number of intervals in one axis, points are N+1 for 1D, (N+1)^2 for 2D.
 
 
 [solver]
