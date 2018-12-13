@@ -19,10 +19,11 @@ void solve_system(struct Parameter* solver)
 		KSP            ksp;          /* linear solver context */
 		PC             Prec;           /* preconditioner context */
 		PetscReal      norm;         /* norm of solution error */
-		PetscInt       i,k,nn=5;
+		PetscInt       i,nn=5,n;
 		int	       j;
 		PetscErrorCode ierr;
 		
+		n = solver->n;
 		if(solver->dimensions==1 && solver->fd_method==2)
 			nn = 3;
 		if(solver->dimensions==2 && solver->fd_method==4)
@@ -31,17 +32,17 @@ void solve_system(struct Parameter* solver)
 		printf("Before creating matrix...\n");
 		/* Creat Matrix */
 		MatCreate(PETSC_COMM_WORLD, &A);
-		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, solver->n, solver->n);
+		MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n, n);
+		//MatSetFromOptions(A);
+		//MatSetUp(A);
+		
 		MatSeqAIJSetPreallocation(A, nn, PETSC_NULL);
 		
 		printf("Before setting salued...\n");
 		
-		for(i=0;i<solver->n;i++)
-			for(j=0;j<solver->nonzero[i];j++);
-			{
-				k = solver->col[i][j];
-				MatSetValues(A,1,&i,1,&k,&solver->val[i][j],INSERT_VALUES);
-			}
+		for(i=0;i<n;i++)
+			MatSetValues(A,1,&i,1,solver->col[i],solver->val[i],INSERT_VALUES);
+		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
 		
@@ -49,12 +50,12 @@ void solve_system(struct Parameter* solver)
 		
 		/* Creat Vector */
 		VecCreate(PETSC_COMM_WORLD,&Rhs);
-		VecSetSizes(Rhs,PETSC_DECIDE,solver->n);
+		VecSetSizes(Rhs,PETSC_DECIDE,n);
 		VecDuplicate(Rhs,&Sol);
 		
 		/* Set RHS vector values*/
-		for(i=0;i<solver->n;i++)
-			VecSetValues(Rhs,1,&i,&solver->b[i],INSERT_VALUES);
+		for(i=0;i<n;i++)
+			VecSetValues(Rhs,1,&i,solver->b[i],INSERT_VALUES);
 		VecAssemblyBegin(Rhs);
 		VecAssemblyEnd(Rhs);
 		
@@ -62,7 +63,7 @@ void solve_system(struct Parameter* solver)
 		KSPCreate(PETSC_COMM_WORLD,&ksp);
 		KSPSetOperators(ksp,A,A);
 		KSPSetType(ksp,KSPGMRES);
-		//tolerance??
+		//tolerance?? sqrt n?
 		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps*sqrt(solver->n),PETSC_DEFAULT,solver->max_iter);
 		
 		/* Set solver pre-conditioner */
