@@ -14,17 +14,21 @@ int main(int argc, char *argv[])
 
 	grvy_timer_init("Steady Heat Equation Solver");
 	
-	#ifdef INCLUDE_PETSC
-		/* Initialization */
-		PetscErrorCode ierr;
-		ierr = PetscInitialize(&argc, &argv, 0, 0);
-		CHKERRQ(ierr);
-	#endif
-	
 	/* Run functions step by step*/ 	
 	parse_input(&solver, argv[1]);
 	init(&solver);
 	build_linear_system(&solver);
+	
+	#ifdef INCLUDE_PETSC
+	if(solver.method==3)
+	{
+		/* Initialization */
+		PetscErrorCode ierr;
+		ierr = PetscInitialize(&argc, &argv, 0, 0);
+		CHKERRQ(ierr);
+	}
+	#endif
+	
 	solve_system(&solver);
 	output(&solver);
 
