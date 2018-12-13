@@ -91,7 +91,7 @@ void solve_system(struct Parameter* solver)
 		VecView(Sol,0);
 		
 		for(i=0;i<n;i++)
-			VecGetValues(Sol,n,&i,&solver->z[i]);
+			VecGetValues(Sol,1,&i,&solver->z[i]);
 		
 		/* Cleanup Functions */
 		ierr = KSPDestroy(&ksp); CHKERRV(ierr);
