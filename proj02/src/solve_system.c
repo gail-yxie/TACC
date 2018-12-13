@@ -84,7 +84,7 @@ void solve_system(struct Parameter* solver)
 		KSPSetOperators(ksp,A,A);
 		KSPSetType(ksp,KSPGMRES);
 		//tolerance?? sqrt n?
-		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps*sqrt(solver->n),PETSC_DEFAULT,solver->max_iter);
+		KSPSetTolerances(ksp,PETSC_DEFAULT,solver->eps,PETSC_DEFAULT,solver->max_iter);
 		
 		/* Set solver pre-conditioner */
 		KSPGetPC(ksp,&Prec);
