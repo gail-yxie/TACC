@@ -113,7 +113,7 @@ void solve_system(struct Parameter* solver)
 		printf("Before setting salued...\n");
 		
 		for(i=0;i<solver->n;i++)
-			for(j=0;j<solver->nonzero[i]);
+			for(j=0;j<solver->nonzero[i];j++);
 				MatSetValues(A,1,&i,1,&solver->col[i][j],&solver->val[i][j],INSERT_VALUES);
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
