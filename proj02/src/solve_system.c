@@ -54,7 +54,7 @@ void solve_system(struct Parameter* solver)
 				MatSetValues(A,1,&i,nn,col,val,INSERT_VALUES);
 			}
 			else
-				MatSetValues(A,1,&i,1,&i,one,INSERT_VALUES);
+				MatSetValues(A,1,&i,1,&i,&one,INSERT_VALUES);
 		
 		MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 		MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
