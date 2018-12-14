@@ -9,7 +9,7 @@ for i in 1 2; do
   echo "---$i D---"
   sed -i "13s/.*/dimensions  = $i/" input.dat
 
-  filename=$(echo "record_${i}D_jacobi")
+  filename=$(echo "./time_record/record_${i}D_jacobi")
 
   for j in `seq 1 12`; do
     sed -i "18s/.*/N    = $(($j*30))/" input.dat
@@ -27,7 +27,7 @@ for i in 1 2; do
   echo "---$i D---"
   sed -i "13s/.*/dimensions  = $i/" input.dat
 
-  filename=$(echo "record_${i}D_gauss")
+  filename=$(echo "./time_record/record_${i}D_gauss")
 
   for j in `seq 1 12`; do
     sed -i "18s/.*/N    = $(($j*30))/" input.dat
@@ -45,7 +45,7 @@ for i in 1 2; do
   echo "---$i D---"
   sed -i "13s/.*/dimensions  = $i/" input.dat
 
-  filename=$(echo "record_${i}D_gmres")
+  filename=$(echo "./time_record/record_${i}D_gmres")
 
   for j in `seq 1 12`; do
     sed -i "18s/.*/N    = $(($j*30))/" input.dat
