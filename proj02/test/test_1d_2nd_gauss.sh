@@ -2,12 +2,6 @@
 
 executable="../src/solver"
 
-# verify executable exists
-if [ ! -x "$executable" ]; then
-	echo "Error: expecting executable -> $executable"
-	exit 1
-fi
-
 # verify 1d 2nd gauss
 $executable input.1d.2nd.gauss
 h5diff --delta=1.0E-8 ref_1d_2nd_gauss.h5 sol.dat T_sol T_sol

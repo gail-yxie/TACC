@@ -2,12 +2,6 @@
 
 executable="../src/solver"
 
-# verify executable exists
-if [ ! -x "$executable" ]; then
-	echo "Error: expecting executable -> $executable"
-	exit 1
-fi
-
 # verify 1d 2nd gmres
 mpirun -np 1 $executable input.1d.2nd.gmres
 h5diff --delta=1.0E-8 ref_1d_2nd_gmres.h5 sol.dat T_sol T_sol
