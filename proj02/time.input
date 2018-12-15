@@ -1,0 +1,26 @@
+# -*-sh-*-
+
+# input file for solving heat conduct equation
+
+k           = 1.0               # thermal conductivity [W/mK]
+verify_mode = 1                 # enable verification mode with MASA
+output_mode = 2                 # output mode (0 = silent, 1 = standard, 2 = debug)
+output_file = 'sol.dat'         # name of solution output file
+
+
+[mesh]
+
+dimensions  = 2
+xmin = 0                	# min x location [m]
+xmax = 1			# max x location [m]
+ymin = 0 			# min y location [m]
+ymax = 1			# max y location [m]
+N    = 360
+
+
+[solver]
+
+fd_method   = 2
+iter_method = 3
+eps         = 1.0e-12		# iterative solver tolerance
+max_iter    = 250000		# max solver iterations
