@@ -16,7 +16,7 @@ sol = reshape(sol,[n,n]);
 figure
 surf(x, y, sol);
 colorbar;
-title("2D Heat Equation Solution Using Gauss-Seidel, 4th order, N = 128 (surf)");
+title("2D Heat Equation Solution Using Gauss-Seidel, 4th order,N = 128 (surf)");
 xlabel('x');
 ylabel('y');
 zlabel('T\_sol');
@@ -30,3 +30,4 @@ title("2D Heat Equation Solution Using Gauss-Seidel, 4th order, N = 128 (contour
 xlabel('x');
 ylabel('y');
 saveas(gcf, '2D_plot_contour.png');
+
