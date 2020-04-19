@@ -1,4 +1,4 @@
-Assignment 3, Yuege Xie, yx4056
+Assignment 3
 
 1. Exercise 1: all the files are on stampede and the pdf is uploaded to canvas.
 
