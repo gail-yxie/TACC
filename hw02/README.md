@@ -1,4 +1,4 @@
-Assignment 2, Yuege Xie, yx4056
+Assignment 2
 
 1. Exercise1: add.sh
 
